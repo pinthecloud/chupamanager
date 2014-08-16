@@ -467,10 +467,26 @@ $(function() {
             toWhom = talkToList[0].id;
         } else if (typeVal == "CHUPA"){
             var receiver = receiverList[0];
-            console.log(receiver.id, sender.id);
             toWhom = receiver.id;
             if (sender.id == toWhom) {
                 alert('Same!');
+                console.log(receiver.id, sender.id);
+                return;
+            }
+        } else if (typeVal == "ENTER_SQUARE"){
+            var receiver = talkToList[0];
+            toWhom = receiver.id;
+            if (sender.id == toWhom) {
+                alert('Same!');
+                console.log(receiver.id, sender.id);
+                return;
+            }
+        } else if (typeVal == "EXIT_SQUARE"){
+            var receiver = talkToList[0];
+            toWhom = receiver.id;
+            if (sender.id == toWhom) {
+                alert('Same!');
+                console.log(receiver.id, sender.id);
                 return;
             }
         }
@@ -495,7 +511,7 @@ $(function() {
         var message = {
             type : typeVal,
             content : contentVal,
-            sender : "fromWeb",
+            sender : sender.nickName,
             senderId : sender.id,
             receiver : "receiver",
             receiverId : toWhom,
