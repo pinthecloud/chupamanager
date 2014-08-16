@@ -26,6 +26,25 @@ $(function() {
                 onclick: function(){
                     // toast.push(Object.toJSON(this.item));
                     // squareGrid.setEditor(this.item, 1);
+                },
+                oncheck: function(){
+                    //사용 가능한 변수
+                    //this.itemIndex
+                    //this.target
+                    //this.checked
+                    //this.r
+                    //this.c
+                    //this.list
+                    //this.item
+                    //toast.push(this.checked);
+
+                    squareGrid.checkedColSeq(10, false);
+                    // userGrid.checkedColSeq(10, false);
+                    // userGrid.checkedColSeq(11, false);
+                    squareGrid.checkedColSeq(10, true, this.index);
+                    console.log(this);
+                    // this.checked = false;
+                    
                 }
             },
             editor: {
@@ -179,6 +198,30 @@ $(function() {
                 onclick: function(){
                     // toast.push(Object.toJSON(this.item));
                     // squareGrid.setEditor(this.item, 1);
+                },
+                oncheck: function(){
+                    //사용 가능한 변수
+                    //this.itemIndex
+                    //this.target
+                    //this.checked
+                    //this.r
+                    //this.c
+                    //this.list
+                    //this.item
+                    //toast.push(this.checked);
+
+                    // squareGrid.checkedColSeq(10, false);
+                    //userGrid.checkedColSeq(10, false);
+                    //userGrid.checkedColSeq(11, false);
+                    // squareGrid.checkedColSeq(10, true, this.index);
+                    
+                    userGrid.checkedColSeq(this.c, false);
+                    userGrid.checkedColSeq(this.c, true, this.index);
+                    
+
+                    console.log(this);
+                    // this.checked = false;
+                    
                 }
             },
             editor: {
@@ -412,7 +455,8 @@ $(function() {
         var receiverList = userGrid.getCheckedList(11);// receiver
 
         if (senderList.length != 1) {
-            alert('Only one!');
+            alert('Only one!' + senderList);
+            console.log(senderList);
             return;
         }
 
@@ -470,6 +514,11 @@ $(function() {
             console.log(error);
             $('#errorlog').append($('<li>').text(error.message));         
         });
+        
+
+        // squareGrid.checkedColSeq(10, false);
+        // userGrid.checkedColSeq(10, false);
+        // userGrid.checkedColSeq(11, false);
         
         evt.preventDefault();
     });
