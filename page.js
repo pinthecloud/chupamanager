@@ -480,7 +480,7 @@ $(function() {
             }
         }
         var d = new Date();
-        var hh = d.getHours();
+        var hh = d.getUTCHours() + 9;
         var mm = d.getMinutes();
         var timeStampTime = hh + ":" + mm;
         var message = {
