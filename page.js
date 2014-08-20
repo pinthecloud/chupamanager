@@ -200,20 +200,7 @@ $(function() {
                     // squareGrid.setEditor(this.item, 1);
                 },
                 oncheck: function(){
-                    //사용 가능한 변수
-                    //this.itemIndex
-                    //this.target
-                    //this.checked
-                    //this.r
-                    //this.c
-                    //this.list
-                    //this.item
-                    //toast.push(this.checked);
-
-                    // squareGrid.checkedColSeq(10, false);
-                    //userGrid.checkedColSeq(10, false);
-                    //userGrid.checkedColSeq(11, false);
-                    // squareGrid.checkedColSeq(10, true, this.index);
+                    
                     
                     userGrid.checkedColSeq(this.c, false);
                     userGrid.checkedColSeq(this.c, true, this.index);
@@ -367,7 +354,7 @@ $(function() {
 
     client = new WindowsAzure.MobileServiceClient('https://athere.azure-mobile.net/', 'AyHtUuHXEwDSTuuLvvSYZtVSQZxtnT17');
     squareTable = client.getTable('Square');
-    userTable = client.getTable('User');
+    userTable = client.getTable('AhUser');
     function refreshSquareList() {
         
         var query = squareTable.read()
@@ -490,23 +477,6 @@ $(function() {
                 return;
             }
         }
-
-        
-        
-
-        
-        
-        
-
-//     private String id = "";
-//     private String type = "";
-//     private String content = "";
-//     private String sender = "";
-//     private String senderId = "";
-//     private String receiver = "";
-//     private String receiverId = "";
-//     private String timeStamp = "";
-//     private String chupaCommunId;
         
         var message = {
             type : typeVal,
