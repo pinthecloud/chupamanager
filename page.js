@@ -525,6 +525,10 @@ $(function() {
 
     }
 
+    function setResult(message) {
+        $('#errorlog').text(message);         
+    }
+
     // // Handle update
     // $(document.body).on('change', '.item-text', function() {
     //     var newText = $(this).val();
