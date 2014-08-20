@@ -408,6 +408,8 @@ $(function() {
     // }
     $('#deleteAllUser').click(function(evt) {
 
+        
+
         // userTable.read().done(function (results) {
 
         //    for (var item in results) {
@@ -425,7 +427,7 @@ $(function() {
         //    $('#errorlog').append($('<li>').text(error.message));
         // });
 
-        //  setInterval(function(){ refreshUserList(); },2000);
+        
 
     });
     // Handle insert
@@ -477,7 +479,10 @@ $(function() {
                 return;
             }
         }
-        
+        var d = new Date();
+        var hh = d.getHours();
+        var mm = d.getMinutes();
+        var timeStampTime = hh + ":" + mm;
         var message = {
             type : typeVal,
             content : contentVal,
@@ -485,7 +490,7 @@ $(function() {
             senderId : sender.id,
             receiver : "receiver",
             receiverId : toWhom,
-            timeStamp : Date.now(),
+            timeStamp : timeStampTime,
             chupaCommunId : sender.id > toWhom ? sender.id + toWhom : toWhom + sender.id
         };
 
