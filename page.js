@@ -431,8 +431,21 @@ $(function() {
 
     });
     // Handle insert
+    sendCount = 0;
+    $('#content').keypress(function(evt){
+        if ( event.which == 13 ) {
+            sendMessage();
+            evt.preventDefault();
+        }
+        
+    });
     $('#add-item').click(function(evt) {
 
+        sendMessage();
+        evt.preventDefault();
+    });
+
+    function sendMessage(){
         var content = $('#content');
         var contentVal = content.val();
         
@@ -505,14 +518,12 @@ $(function() {
             console.log(error);
             $('#errorlog').append($('<li>').text(error.message));         
         });
-        
 
-        // squareGrid.checkedColSeq(10, false);
-        // userGrid.checkedColSeq(10, false);
-        // userGrid.checkedColSeq(11, false);
-        
-        evt.preventDefault();
-    });
+        console.log($('#content').val());
+        $('#content').val( $('#content').val() + sendCount++);
+
+
+    }
 
     // // Handle update
     // $(document.body).on('change', '.item-text', function() {
