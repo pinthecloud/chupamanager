@@ -467,7 +467,7 @@ $(function() {
         var toWhom = "";
         if (typeVal == "TALK") {
             toWhom = talkToList[0].id;
-        } else if (typeVal == "CHUPA"){
+        } else if (typeVal == "CHUPA" || typeVal == "FORCED_LOGOUT"){
             var receiver = receiverList[0];
             toWhom = receiver.id;
             if (sender.id == toWhom) {
@@ -491,7 +491,7 @@ $(function() {
                 console.log(receiver.id, sender.id);
                 return;
             }
-        }
+        } 
         var d = new Date();
         var hh = d.getUTCHours() + 9;
         var mm = d.getMinutes();
