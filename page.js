@@ -19,7 +19,6 @@ $(function() {
                 {key:"latitude", label:"latitude", width:"70"},
                 {key:"longitude", label:"longitude", width:"70"},
                 {key:"talkTo", label:"talkTo", width:"70", formatter:"radio", align:"center" }
-                
             ],
             colHeadAlign:"center",
             body : {
@@ -60,15 +59,19 @@ $(function() {
                         {colSeq:2, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}},
                         {colSeq:3, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                         {colSeq:4, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
-                        {colSeq:5, align:"center", valign:"bottom", form:{type:"radio", value:"itemValue", options:[
-                            {value:'true', text:'true'},
-                            {value:'false', text:'false'}
+                        {colSeq:5, align:"center", valign:"bottom", form:{type:"radio", options:[
+                                {value:'true', text:'true'},
+                                {value:'false', text:'false'}
                             ]}
                         },
                         {colSeq:6, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}},
                         {colSeq:7, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}},
                         {colSeq:8, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}},
                         {colSeq:9, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}}
+                        // {colSeq:10, align:"center", valign:"bottom", form:{type:"radio", value:"itemValue", options: [
+                        //     {value:'true', text:'true'},
+                        //     {value:'false', text:'false'}
+                        // ]}}
 
                     ]
                 ],
@@ -91,10 +94,11 @@ $(function() {
                         
                     }else{ // 수정
                         //trace(this.res.item);
+                        
                         AXUtil.overwriteObject(this.list[this.index], this.res.item, true); // this.list[this.index] object 에 this.res.item 값 덮어쓰기
                         squareGrid.updateList(this.index, this.list[this.index]);
 
-                        console.log(this.res.item);
+                        
                         delete this.res.item["requestType"];
                         var query = squareTable.update(this.res.item)
                                     .done(function (results) {
@@ -155,6 +159,7 @@ $(function() {
                     {
                         userType:1, label:"수정하기", className:"edit", onclick:function(){
                             //trace(this);
+                            // console.log(this.sendObj, squareGrid, $('#SquareGrid_AX_editorButtons'));
                             if(this.sendObj){
                                 squareGrid.setEditor(this.sendObj.item, this.sendObj.index);
                                 $('#SquareGrid_AX_editorButtons').css({top: "40px"});
@@ -335,6 +340,7 @@ $(function() {
                     {
                         userType:1, label:"수정하기", className:"edit", onclick:function(){
                             //trace(this);
+                            // console.log(this.sendObj, userGrid);
                             if(this.sendObj){
                                 // console.log(userGrid.setEditor);
                                 userGrid.setEditor(this.sendObj.item, this.sendObj.index);
