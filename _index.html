@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Chupa Manage Page</title>
+        <!-- <link rel='stylesheet' href='styles.css' /> -->
+        <meta name='viewport' content='width=device-width' />
+        <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"></script><![endif]-->
+        <!-- css block -->
+
+        
+        
+        <!-- js block -->
+        <script type="text/javascript" src="./axisj-1.0.7/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="./axisj-1.0.7/lib/AXJ.js"></script>
+        <script type="text/javascript" src="./axisj-1.0.7/lib/AXInput.js"></script>
+        <script type="text/javascript" src="./axisj-1.0.7/lib/AXSelect.js"></script>
+        <script type="text/javascript" src="./axisj-1.0.7/lib/AXGrid.js"></script>
+
+        <!-- css block -->
+        <link rel="stylesheet" type="text/css" href="./axisj-1.0.7/ui/arongi/AXJ.css">
+        <link rel="stylesheet" type="text/css" href="./axisj-1.0.7/ui/arongi/AXInput.css">
+        <link rel="stylesheet" type="text/css" href="./axisj-1.0.7/ui/arongi/AXButton.css">
+        <link rel="stylesheet" type="text/css" href="./axisj-1.0.7/ui/arongi/AXSelect.css">
+        <link rel="stylesheet" type="text/css" href="./axisj-1.0.7/ui/arongi/AXGrid.css">
+
+
+    </head>
+    <body>
+        <span>Square</span>
+        <div id="SquareGrid" style="height:170px;"></div>
+
+
+        <span>User</span> <!-- <button id="deleteAllUser">Remove All Users</button> -->
+        <div id="UserGrid" style="height:300px;"></div>
+
+        <div id="messageDiv" style="height:50px;">
+            <!-- <form id='add-item'> -->
+                <select id="type">
+                  <option value="TALK">TALK</option>
+                  <option value="SHOUTING">SHOUTING</option>
+                  <option value="CHUPA">CHUPA</option>
+                  <option value="ENTER_SQUARE">ENTER_SQUARE</option>
+                  <option value="EXIT_SQUARE">EXIT_SQUARE</option>
+                  <option value="UPDATE_USER_INFO">UPDATE_USER_INFO</option>
+                  <option value="MESSAGE_READ">MESSAGE_READ</option>
+                  <option value="FORCED_LOGOUT">FORCED_LOGOUT</option>
+                </select>
+                
+                <div>
+                    <label>Enter Message</label><input type='text' id='content' placeholder='Enter message' />
+                    <!-- <button type='submit'>Send</button> -->
+                    <button id='add-item'>Send</button>
+                </div>
+            <!-- </form> -->
+        </div>        
+
+        <ul id='errorlog'></ul>
+
+        <!-- <div id='wrapper'>
+            <article>
+                <header>
+                    <h2>Microsoft Azure</h2>
+                    <h1>MyMobile Services</h1>
+
+                    <form id='add-item'>
+                        <select id="type">
+                          <option value="TALK">TALK</option>
+                          <option value="SHOUTING">SHOUTING</option>
+                          <option value="CHUPA">CHUPA</option>
+                          <option value="ENTER_SQUARE">ENTER_SQUARE</option>
+                          <option value="EXIT_SQUARE">EXIT_SQUARE</option>
+                          <option value="UPDATE_USER_INFO">UPDATE_USER_INFO</option>
+                          <option value="MESSAGE_READ">MESSAGE_READ</option>
+                        </select>
+                        <button type='submit'>Add</button>
+                        <div>
+                            <input type='text' id='content' placeholder='Enter message' />
+                            <input type='text' id='receiverId' placeholder='receiverId' />
+                            <input type='text' id='senderId' placeholder='senderId' />
+                        </div>
+                    </form>
+                </header>
+
+                <p id='result'>NORMAL</p>
+            </article>
+
+            <footer>
+                
+                <ul id='errorlog'></ul>
+            </footer>
+        </div> -->
+
+        <!--<script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js'></script>-->
+        <script src='http://ajax.aspnetcdn.com/ajax/mobileservices/MobileServices.Web-1.2.2.min.js'></script>
+        <script src='page.js'></script>
+    </body>
+</html>
