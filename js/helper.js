@@ -30,6 +30,18 @@ UserHelper.prototype.list = function (callback) {
         });
 }
 
+UserHelper.prototype.list = function (id, callback) {
+    this.table.where({ squareId: id })
+        .read()
+        .done(function (results) {
+            if (callback.success != null)
+                callback.success(results);
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
+
 UserHelper.prototype.update = function (user, callback) {
 	delete user["requestType"];
 
@@ -76,6 +88,24 @@ SquareHelper.prototype.list = function (callback) {
         });
 }
 
+SquareHelper.prototype.getSqure = function (id, callback) {
+    this.table.where({id : id})
+        .read()
+        .done(function (results) {
+            if (results.length == 1) {
+                if (callback.success != null)
+                    callback.success(results[0]);
+            }
+            else {
+                if (callback.error != null)
+                    callback.error(err);
+            }
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
+
 SquareHelper.prototype.add = function (item, callback) {
 	delete item["requestType"];
 
@@ -113,8 +143,6 @@ SquareHelper.prototype.delete = function (userId, callback) {
         }); 
 }
 
-
-
 /*
 	MessageHelper
 */
@@ -125,23 +153,6 @@ function MessageHelper(client) {
 }
 
 MessageHelper.prototype.sendMessage = function (message, callback) {
-	var d = new Date();
-
-    var hh = d.getUTCHours() + 9;
-    var mm = d.getMinutes();
-    var timeStampTime = hh + ":" + mm;
-    // var message = {
-    //     type : typeVal,
-    //     content : contentVal,
-    //     sender : sender.nickName,
-    //     senderId : sender.id,
-    //     receiver : "receiver",
-    //     receiverId : toWhom,
-    //     timeStamp : timeStampTime,
-    //     chupaCommunId : sender.id > toWhom ? sender.id + toWhom : toWhom + sender.id
-    // };
-
-    message['timeStamp'] = timeStampTime;
     message['chupaCommunId'] = message['senderId'] > message['receiverId'] ? 
     					message['senderId'] + message['receiverId'] : message['receiverId'] + message['senderId'];
 

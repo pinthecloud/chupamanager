@@ -14,6 +14,8 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/mycss.css">
+        <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXButton.css">
         <link rel="shortcut icon" href="favicon.ico"/>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
@@ -23,27 +25,25 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <div>
-            <center>
-                <img src='./img/splash_copy.png'/>
-                <div>
-                    <table>
-                        <tr>
-                            <td><label>ID<label></td>
-                            <td><input id='id_id' type='text'/></td>
-                        </tr>
-                        <tr>
-                            <td><label>PW<label></td>
-                            <td><input id='id_pw' type='password'/></td>
-                        </tr>
-                        <tr>
-                            <td><label><label></td>
-                            <td><input id='id_btn' type='button' value='Login' style='width: 100%;'/></td>
-                        </tr>
-                    </table>
-                </div>
-            </center>
-        </div>
+        <center>
+            <img src='./img/splash_copy.png'/>
+            <div>
+                <table>
+                    <tr>
+                        <td><label>ID<label></td>
+                        <td><input id='id_id' type='text'/></td>
+                    </tr>
+                    <tr>
+                        <td><label>PW<label></td>
+                        <td><input id='id_pw' type='password'/></td>
+                    </tr>
+                    <tr>
+                        <td><label><label></td>
+                        <td><input id='id_btn' type='button' value='Login' style='width: 100%; background-color:#D6003B; font-size: large;'/></td>
+                    </tr>
+                </table>
+            </div>
+        </center>
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -85,7 +85,7 @@
                 for (var i = 0 ; i < list.length ; i++) {
                     
                     if (list[i].whoMade == idVal) {
-                        window.location.href = './page/owner_page.html';
+                        window.location.href = './page/owner.html?id='+list[i].id;
                         return;
                     }
                         

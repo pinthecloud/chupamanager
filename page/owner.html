@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Chupa Manage Page</title>
+        <meta name='viewport' content='width=device-width' />
+        <meta http-equiv="refresh" content="60"/>
+        <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"></script><![endif]-->
+
+        <!-- js block -->
+        <script type="text/javascript" src="/chupamanager/axisj-1.0.7/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXJ.js"></script>
+        <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXInput.js"></script>
+        <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXSelect.js"></script>
+        <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXGrid.js"></script>
+        <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXModal.js"></script>
+
+        <!-- css block -->
+        <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXJ.css">
+        <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXInput.css">
+        <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXButton.css">
+        <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXSelect.css">
+        <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXGrid.css">
+        <link rel="stylesheet" type="text/css" href="/chupamanager/css/mycss.css">
+    </head>
+    <body>
+        <div id='main'>
+            <div id='dash_board' class="dash_board padding_15">
+                <div style="display: inline-block">
+                    <ul>
+                        <li><label class="dash_board_label">ID &nbsp;&nbsp;:</label><span class="dash_board_span" id="nick_name">0000</span></li>
+                        <li><label class="dash_board_label">이름:</label><span class="dash_board_span" id="name">0000</span></li>
+                        <li><label class="dash_board_label">코드:</label><span class="dash_board_span" id="code">0000</span></li>
+                        <li><label class="dash_board_label">남자:</label><span class="dash_board_span" id="malenum">0000</span></li>
+                        <li><label class="dash_board_label">여자:</label><span class="dash_board_span" id="femalenum">0000</span></li>
+
+                    </ul>
+                    <!--<table>-->
+                        <!--<tr>-->
+                            <!--<td>ID :</td><td id="nick_name" style="text-align: right">000</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>이름 :</td><td id="name" style="text-align: right">0000</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>코드 :</td><td id="code" style="text-align: right">0000</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>사용자수</td><td>(총 동행인 수)</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>남자 :</td><td id="malenum" style="text-align: right">0000</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>여자 :</td><td id="femalenum" style="text-align: right">0000</td>-->
+                        <!--</tr>-->
+                    <!--</table>-->
+                </div>
+                <div id="message_div">
+                    <label>전체 공지사항 보내기</label>
+                    <input type="text" id="admin_message_input" class="big_font_size"/><input type="button" value="Send" id="admin_message_btn" class="mybtn"/>
+                </div>
+                <div id="error_log"></div>
+            </div>
+            <div id='user_list'>
+                <div id="UserGrid" class="user_grid padding_15"></div>
+            </div>
+        </div>
+
+
+        <script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+        <script src='http://ajax.aspnetcdn.com/ajax/mobileservices/MobileServices.Web-1.2.2.min.js'></script>
+        <script src='/chupamanager/js/helper.js'></script>
+        <script src='/chupamanager/js/main.js'></script>
+        <script src='/chupamanager/js/owner.js'></script>
+
+
+
+        <div id="message_dialog" class="dialog big_font_size padding_15">
+
+            <div>
+                <div >보낼 메세지를 입력하세요.</div>
+                <textarea id="message_dialog_input" class="big_font_size"></textarea>
+            </div>
+            <center><input type="button" value="보내기" id="message_dialog_btn" class="AXButtonLarge Blue" style="width: 200px;"/></center>
+            <input type="hidden" id="message_dialog_id"/>
+        </div>
+
+        <!--<progress id="pbar" max="100" class="myprogress"">-->
+    </body>
+</html>
