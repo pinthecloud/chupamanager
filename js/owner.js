@@ -19,6 +19,7 @@ $(function($){
     var squareHelper = new SquareHelper(mClient.getClient());
     var messageHelper = new MessageHelper(mClient.getClient());
     param.messageHelper = messageHelper;
+    param.squareHelper = squareHelper;
     var userGrid = makeUserGrid(param);
 
     ///////////////////////////////
@@ -29,7 +30,7 @@ $(function($){
             owner.square = result;
             $('#nick_name').text(result.whoMade);
             $('#name').text(result.name);
-            $('#code').text(result.code);
+            $('#code').val(result.code);
             userHelper.list(owner.square.id, {
                 success: function(results) {
 
@@ -107,6 +108,45 @@ function doKeyBindingJobs(param) {
             evt.preventDefault();
         }
     });
+
+    var onCodeClick = function (evt){
+        $('#code').attr("type","text");
+        $('#code').attr("class", "code-field");
+        $('#code_span').append("<input id='code_btn_ok' type='button' value='Change' class='code_btn'/>");
+        $('#code_span').append("<input id='code_btn_cancel' type='button' value='Cancel' class='code_btn'/>");
+        $('#code').unbind( "click" );
+        $('#code_btn_ok').click(function(e){
+            var newCode = $('#code').val();
+            if (param.owner.square.code != newCode) {
+                param.owner.square.code = newCode;
+                mask.open();
+                param.squareHelper.update(param.owner.square, {
+                    success: function(result) {
+                        $('#code').val(newCode);
+                        $('#code').attr("type","button");
+                        $('#code').click(onCodeClick);
+                        $('#code_btn_ok').remove();
+                        $('#code_btn_cancel').remove();
+                        $('#code').attr("class", "code_btn");
+                        mask.close();
+                    }, error: function (err) {
+                        GlobalVariables.Log(err);
+                    }
+                });
+            }
+
+
+
+        });
+        $('#code_btn_cancel').click(function(e){
+            $('#code').attr("type","button");
+            $('#code').click(onCodeClick);
+            $('#code_btn_ok').remove();
+            $('#code_btn_cancel').remove();
+            $('#code').attr("class", "code_btn");
+        });
+    }
+    $('#code').click(onCodeClick);
 }
 function send_ADMIN_MESSAGE_ALL(param) {
 
