@@ -4,9 +4,8 @@ function GlobalVariables(){}
 GlobalVariables.REAL_URL = 'https://athere.azure-mobile.net/';
 GlobalVariables.REAL_KEY = 'AyHtUuHXEwDSTuuLvvSYZtVSQZxtnT17';
 
-
-GlobalVariables.TEST_URL = 'https://athere.azure-mobile.net/';
-GlobalVariables.TEST_KEY = 'AyHtUuHXEwDSTuuLvvSYZtVSQZxtnT17';
+GlobalVariables.TEST_URL = 'https://atheresub.azure-mobile.net/';
+GlobalVariables.TEST_KEY = 'MRKovlGEFQRPXGTVMFaZCBkeBwQSQA92';
 
 GlobalVariables.Log = function(message) {
     message = JSON.stringify(message);
