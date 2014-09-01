@@ -14,7 +14,7 @@ $(function($){
     id = id.split("=")[1];
     mask.open();
 //    $('#pbar').css("display", "block");
-    var mClient = new MobileClient(GlobalVariables.REAL_URL,GlobalVariables.REAL_KEY);
+    var mClient = new MobileClient(GlobalVariables.TEST_URL,GlobalVariables.TEST_KEY);
     var userHelper = new UserHelper(mClient.getClient());
     var squareHelper = new SquareHelper(mClient.getClient());
     var messageHelper = new MessageHelper(mClient.getClient());
@@ -140,6 +140,7 @@ function doKeyBindingJobs(param) {
         });
         $('#code_btn_cancel').click(function(e){
             $('#code').attr("type","button");
+            $('#code').val(param.owner.square.code);
             $('#code').click(onCodeClick);
             $('#code_btn_ok').remove();
             $('#code_btn_cancel').remove();
@@ -150,9 +151,9 @@ function doKeyBindingJobs(param) {
 }
 function send_ADMIN_MESSAGE_ALL(param) {
 
-    var content = $('#admin_message_input');
+    var content = $('#admin_message_input').val();
     $('#admin_message_input').val("");
-    var id = owner.square.id;
+    var id = param.owner.square.id;
     var type = AhMessage.TYPE.ADMIN_MESSAGE;
 
     var message = new AhMessage.Builder()
@@ -163,7 +164,7 @@ function send_ADMIN_MESSAGE_ALL(param) {
         .setReceiver("")
         .setReceiverId(id)
         .build()
-
+    console.log(message);
     // do server job
     param.messageHelper.sendMessage(message, {
         success: function(result) {

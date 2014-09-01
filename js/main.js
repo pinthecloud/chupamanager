@@ -31,7 +31,6 @@ function AhMessage(){}
 
 AhMessage.TYPE = {
     TALK: "TALK",
-    SHOUTING: "SHOUTING",
     CHUPA: "CHUPA",
     ENTER_SQUARE: "ENTER_SQUARE",
     EXIT_SQUARE: "EXIT_SQUARE",

@@ -20,24 +20,88 @@
     <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXButton.css">
     <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXSelect.css">
     <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXGrid.css">
+    <link rel="stylesheet" type="text/css" href="/chupamanager/css/mycss.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+
+
 </head>
 <body>
-<div>
-    <center><img src='/chupamanager/img/banner.webp'/></center>
-</div>
-<div id='main'>
-    <div id='dash_board'>
+    <div id='main'>
+        <div id='dash_board' class="dash_board padding_10">
+            <img src="/chupamanager/img/launcher.png" height="15px" width="15px"/> <span style="font-size: small">[Send a Chupa] - Manager Page <span style="float: right; font-size: small">v1.0</span></span>
+        </div>
+        <div>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs_1">Test Server</a></li>
+                    <li><a href="#tabs_2">Real Server</a></li>
+                    <li><a href="#tabs_3">Statistics</a></li>
+                </ul>
+
+                <!-- Test Server Structure -->
+                <div id="tabs_1">
+                    <div>
+                        <div class="spanify">App Version <button id="AppVersionCode">0.1</button> <button id="AppVersionOption">Mandatory</button></div>
+                        <div class="spanify align-right">
+                            <select class="myselect">
+                                <option>-Message TYPE-</option>
+                                <option>TALK</option>
+                                <option>CHUPA</option>
+                                <option>ENTER_SQUARE</option>
+                                <option>EXIT_SQUARE</option>
+                                <option>UPDATE_USER_INFO</option>
+                                <option>MESSAGE_READ</option>
+                                <option>FORCED_LOGOUT</option>
+                                <option>ADMIN_MESSAGE</option>
+                            </select>
+                            <select class="myselect">
+                                <option>FROM</option>
+                                <option>---</option>
+                            </select>
+                            <select class="myselect">
+                                <option>TO</option>
+                                <option>---</option>
+                            </select>
+                            <input type="text"/><button>Send</button>
+                        </div>
+                        <div>
+                            [AhUser]
+                            <div id="AhUserGrid" style="height: 250px;"></div>
+                            [Square]
+                            <div id="SquareGrid" style="height: 150px;"></div>
+                            [AhIdUser]
+                            <div id="AhIdUserGrid" style="height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Real Server Structure -->
+                <div id="tabs_2">
+                    <div></div>
+                </div>
+
+
+
+                <!-- Statistics Structure -->
+                <div id="tabs_3">
+                    <div></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id='list'>
 
-    </div>
-</div>
-
-
-
-<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
 <script src='http://ajax.aspnetcdn.com/ajax/mobileservices/MobileServices.Web-1.2.2.min.js'></script>
 <script src='/chupamanager/js/helper.js'></script>
+<script src='/chupamanager/js/main.js'></script>
+<script src='/chupamanager/js/admin.js'></script>
 
 </body>
 </html>
