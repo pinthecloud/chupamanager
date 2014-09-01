@@ -30,17 +30,17 @@ UserHelper.prototype.list = function (callback) {
         });
 }
 
-UserHelper.prototype.list = function (id, callback) {
-    this.table.where({ squareId: id })
-        .read()
-        .done(function (results) {
-            if (callback.success != null)
-                callback.success(results);
-        }, function (err) {
-            if (callback.error != null)
-                callback.error(err);
-        });
-}
+//UserHelper.prototype.list = function (id, callback) {
+//    this.table.where({ squareId: id })
+//        .read()
+//        .done(function (results) {
+//            if (callback.success != null)
+//                callback.success(results);
+//        }, function (err) {
+//            if (callback.error != null)
+//                callback.error(err);
+//        });
+//}
 
 UserHelper.prototype.update = function (user, callback) {
 	delete user["requestType"];
