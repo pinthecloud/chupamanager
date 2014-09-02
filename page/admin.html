@@ -56,7 +56,7 @@
                             </select>
                         </div>
                         <div class="spanify align-right">
-                            <select class="myselect">
+                            <select class="myselect" id="message_type">
                                 <option>-Message TYPE-</option>
                                 <option>TALK</option>
                                 <option>CHUPA</option>
@@ -67,15 +67,15 @@
                                 <option>FORCED_LOGOUT</option>
                                 <option>ADMIN_MESSAGE</option>
                             </select>
-                            <select class="myselect">
+                            <select class="myselect" id="message_from">
                                 <option>FROM</option>
                                 <option>---</option>
                             </select>
-                            <select class="myselect">
+                            <select class="myselect" id="message_to">
                                 <option>TO</option>
                                 <option>---</option>
                             </select>
-                            <input type="text"/><button>Send</button>
+                            <input id="message_content" type="text"/><button id="message_send" disabled>Send</button>
                         </div>
                         <div>
                             [AhUser]

@@ -162,6 +162,7 @@ function onCreateAhUserGrid() {
             onclick: function(){
 //                toast.push(Object.toJSON(this.item));
                 // squareGrid.setEditor(this.item, 1);
+//                console.log(contextMenu);
             },
             oncheck: function(){
 
@@ -698,6 +699,123 @@ function doBindingJobs() {
         });
 
     });
+
+    jQuery.fn.extend({
+        addOption: function(id, item) {
+            $(this).append("<option id='" + id + "'>"+item+"</option>>")
+        }
+    });
+
+    jQuery.extend({
+        ahFindById: function(id) {
+
+            if (id==null || id==undefined) return null;
+
+            var list = $.adminGlob.ahUserGrid.list;
+            for(var i = 0 ; i < list.length ; i++) {
+                if (list[i].id == id) return list[i];
+            }
+            list = $.adminGlob.squareGrid.list;
+            for(var i = 0 ; i < list.length ; i++) {
+                if (list[i].id == id) return list[i];
+            }
+
+            if (id == GlobalVariables.OWNER.senderId) return GlobalVariables.OWNER;
+            return null;
+        }
+    });
+
+
+
+    $('#message_type').change(function(evt) {
+
+        var type = $('#message_type').val();
+        if (type == AhMessage.TYPE.MESSAGE_READ || type == AhMessage.TYPE.UPDATE_USER_INFO) {
+            alert('NOT IMPLEMENTED YET');
+            $('#message_type').val("-Message TYPE-");
+            return;
+        }
+
+        var list = $.adminGlob.ahUserGrid.list;
+        $('#message_from').empty();
+        $('#message_from').addOption("-","-FROM-");
+        $('#message_from').addOption(GlobalVariables.OWNER.senderId,"["+GlobalVariables.OWNER.sender+"]");
+        for(var i = 0 ; i < list.length ; i++) {
+            $('#message_from').addOption(list[i].id, list[i].nickName);
+        }
+
+    });
+
+    $('#message_from').change(function(evt) {
+
+        var type = $('#message_type').val();
+        $('#message_to').empty();
+        $('#message_to').addOption("-","-TO-");
+
+        // 1 to many
+        if (type == AhMessage.TYPE.TALK || type == AhMessage.TYPE.ENTER_SQUARE
+            || type == AhMessage.TYPE.EXIT_SQUARE || type == AhMessage.TYPE.ADMIN_MESSAGE) {
+            var list = $.adminGlob.squareGrid.list;
+            for(var i = 0 ; i < list.length ; i++) {
+                $('#message_to').addOption(list[i].id, list[i].name);
+            }
+        // 1 to 1
+        } else if (type == AhMessage.TYPE.CHUPA || type == AhMessage.TYPE.FORCED_LOGOUT) {
+            var list = $.adminGlob.ahUserGrid.list;
+            for(var i = 0 ; i < list.length ; i++) {
+                $('#message_to').addOption(list[i].id, list[i].nickName);
+            }
+        } else {
+            // NOT IMPLEMENTED YET
+        }
+    });
+
+    $('#message_to').change(function(evt) {
+        $('#message_send').removeAttr('disabled');
+
+    });
+
+    $('#message_send').click(function(evt){
+        var type = $('#message_type').val();
+        var fromId = $('#message_from').children(":selected").attr("id");
+        var toId   = $('#message_to').children(":selected").attr("id");
+        var content = $('#message_content').val();
+
+        var senderObj = $.ahFindById(fromId);
+        var sender = senderObj.nickName;
+        var senderId = senderObj.id;
+        if (fromId == GlobalVariables.OWNER.senderId) {
+            sender = GlobalVariables.OWNER.sender;
+            senderId = GlobalVariables.OWNER.senderId;
+        }
+
+        var receiverObj = $.ahFindById(toId);
+        var receiver = receiverObj.nickName;
+        if (receiver == undefined) receiver = "";
+        var receiverId = receiverObj.id;
+
+        var message = new AhMessage.Builder()
+            .setType(type)
+            .setContent(content)
+            .setSender(sender)
+            .setSenderId(senderId)
+            .setReceiver(receiver)
+            .setReceiverId(receiverId)
+            .build()
+
+        // do server job
+        $.adminGlob.messageHelper.sendMessage(message, {
+            success: function(result) {
+                GlobalVariables.Log(result);
+            }, error: function(err) {
+                GlobalVariables.Log(err);
+                console.log(err);
+            }
+        });
+    });
+
+
+
 }
 
 
