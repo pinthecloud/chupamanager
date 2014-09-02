@@ -13,6 +13,7 @@
     <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXInput.js"></script>
     <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXSelect.js"></script>
     <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXGrid.js"></script>
+    <script type="text/javascript" src="/chupamanager/axisj-1.0.7/lib/AXModal.js"></script>
 
     <!-- css block -->
     <link rel="stylesheet" type="text/css" href="/chupamanager/axisj-1.0.7/ui/arongi/AXJ.css">
@@ -32,20 +33,28 @@
 <body>
     <div id='main'>
         <div id='dash_board' class="dash_board padding_10">
-            <img src="/chupamanager/img/launcher.png" height="15px" width="15px"/> <span style="font-size: small">[Send a Chupa] - Manager Page <span style="float: right; font-size: small">v1.0</span></span>
+            <img src="/chupamanager/img/launcher.png" height="15px" width="15px"/> <span style="font-size: small">[Send a Chupa] - Manager Page <span style="float: right; font-size: small">v1.0</span></span><span id="error_log" style="margin-left: 30px;"></span>
         </div>
         <div>
             <div id="tabs">
                 <ul>
-                    <li><a href="#tabs_1">Test Server</a></li>
-                    <li><a href="#tabs_2">Real Server</a></li>
-                    <li><a href="#tabs_3">Statistics</a></li>
+                    <li><a href="#tabs_0">Test Server</a></li>
+                    <li><a href="#tabs_1">Real Server</a></li>
+                    <li><a href="#tabs_2">Statistics</a></li>
                 </ul>
 
                 <!-- Test Server Structure -->
-                <div id="tabs_1">
+                <div id="tabs_0">
                     <div>
-                        <div class="spanify">App Version <button id="AppVersionCode">0.1</button> <button id="AppVersionOption">Mandatory</button></div>
+                        <div class="spanify">App Version
+                            <input type="hidden" id="AppVersionId"/>
+                            <button id="AppVersionCode">0.1</button>
+                            <input id="AppVersionCodeEdit" type="text" style="display: none; width:40px;"/>
+                            <select id="AppVersionOptionEdit" class="app_version_option_select">
+                                <option value="MANDATORY">MANDATORY</option>
+                                <option value="OPTIONAL">OPTIONAL</option>
+                            </select>
+                        </div>
                         <div class="spanify align-right">
                             <select class="myselect">
                                 <option>-Message TYPE-</option>
@@ -84,17 +93,26 @@
 
 
                 <!-- Real Server Structure -->
-                <div id="tabs_2">
+                <div id="tabs_1">
                     <div></div>
                 </div>
 
 
 
                 <!-- Statistics Structure -->
-                <div id="tabs_3">
+                <div id="tabs_2">
                     <div></div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="detail_dialog" class="dialog height_400 my_font_size padding_15">
+        <div>
+
         </div>
     </div>
 

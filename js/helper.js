@@ -30,7 +30,7 @@ UserHelper.prototype.list = function (callback) {
         });
 }
 
-//UserHelper.prototype.list = function (id, callback) {
+//UserHelper.prototype.get = function (id, callback) {
 //    this.table.where({ squareId: id })
 //        .read()
 //        .done(function (results) {
@@ -143,10 +143,98 @@ SquareHelper.prototype.delete = function (userId, callback) {
         }); 
 }
 
+
+
+
+/*
+    AhIdUserHelper
+ */
+
+function AhIdUserHelper(client){
+    this.client = client;
+    this.table = client.getTable('AhIdUser');
+}
+
+AhIdUserHelper.prototype.list = function (callback) {
+    this.table.read()
+        .done(function (results) {
+            if (callback.success != null)
+                callback.success(results);
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
+
+AhIdUserHelper.prototype.update = function (user, callback) {
+    delete user["requestType"];
+
+    this.table.update(user)
+        .done(function (results) {
+            if (callback.success != null)
+                callback.success(results);
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
+
+AhIdUserHelper.prototype.delete = function (userId, callback) {
+    this.table.del({
+        id: userId
+    }).done(function () {
+        if (callback.success != null)
+            callback.success(null);
+    }, function (err) {
+        if (callback.error != null)
+            callback.error(err);
+    });
+}
+
+
+
+
+/*
+    AppVersionHelper
+ */
+
+function AppVersionHelper(client){
+    this.client = client;
+    this.table = client.getTable('AppVersion');
+}
+
+AppVersionHelper.prototype.get = function (callback) {
+    this.table.read()
+        .done(function (results) {
+            if (results.length == 1) {
+                if (callback.success != null)
+                    callback.success(results[0]);
+            } else {
+                if (callback.error != null)
+                    callback.error(err);
+            }
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
+
+AppVersionHelper.prototype.update = function (appVersion, callback) {
+
+    this.table.update(appVersion)
+        .done(function (results) {
+            if (callback.success != null)
+                callback.success(results);
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
+
+
 /*
 	MessageHelper
 */
-
 
 function MessageHelper(client) {
 	this.client = client;

@@ -53,11 +53,22 @@ li {
 
 .dialog {
     top : 100px;
+}
+
+.height_200 {
     height : 200px;
+}
+
+.height_400 {
+    height : 400px;
 }
 
 .big_font_size {
     font-size: xx-large;
+}
+
+.my_font_size {
+    font-size: 1.5em;
 }
 
 textarea {
@@ -190,6 +201,33 @@ textarea {
     width: 100px;
     font-size: large;
     text-align: center;
+}
+
+.app_version_option_select {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 1em;
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    padding: 2px 6px 3px;
+    border: 2px outset buttonface;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    /*background-color: buttonface;*/
+    box-sizing: border-box;
+    margin: 0em;
+    font: -webkit-small-control;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    -webkit-writing-mode: horizontal-tb;
 }
 /*//.AXContextMenu .contextMenuItem.first {*/
 /*//.AXContextMenu .contextMenuItem.last {*/

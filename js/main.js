@@ -7,6 +7,11 @@ GlobalVariables.REAL_KEY = 'AyHtUuHXEwDSTuuLvvSYZtVSQZxtnT17';
 GlobalVariables.TEST_URL = 'https://atheresub.azure-mobile.net/';
 GlobalVariables.TEST_KEY = 'MRKovlGEFQRPXGTVMFaZCBkeBwQSQA92';
 
+GlobalVariables.OWNER = {
+    sender: "관리자",
+    senderId: "PintheCloud"
+};
+
 GlobalVariables.Log = function(message) {
     message = JSON.stringify(message);
     $('#error_log').text(message);
