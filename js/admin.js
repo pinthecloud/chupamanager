@@ -771,6 +771,10 @@ function doBindingJobs() {
     });
 
     $('#message_to').change(function(evt) {
+        var sender = $('#message_from').val();
+        var receiver = $('#message_to').val();
+        if (sender == receiver) return;
+        
         $('#message_send').removeAttr('disabled');
 
     });
@@ -806,12 +810,15 @@ function doBindingJobs() {
         // do server job
         $.adminGlob.messageHelper.sendMessage(message, {
             success: function(result) {
-                GlobalVariables.Log(result);
+                alert('메세지 전송 성공');
             }, error: function(err) {
                 GlobalVariables.Log(err);
                 console.log(err);
             }
         });
+
+        $('#message_content').val('');
+        $('#message_send').attr('disabled', 'disabled');
     });
 
 
