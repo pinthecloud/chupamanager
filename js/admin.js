@@ -775,7 +775,7 @@ function doBindingJobs() {
         var receiver = $('#message_to').val();
         if (sender == receiver) return;
         
-        $('#message_send').removeAttr('disabled');
+//        $('#message_send').removeAttr('disabled');
 
     });
 
@@ -819,7 +819,7 @@ function doBindingJobs() {
         });
 
         $('#message_content').val('');
-        $('#message_send').attr('disabled', 'disabled');
+//        $('#message_send').attr('disabled', 'disabled');
     });
 
 
