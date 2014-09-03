@@ -811,6 +811,7 @@ function doBindingJobs() {
         $.adminGlob.messageHelper.sendMessage(message, {
             success: function(result) {
                 alert('메세지 전송 성공');
+                console.log(message, result);
             }, error: function(err) {
                 GlobalVariables.Log(err);
                 console.log(err);
