@@ -810,7 +810,7 @@ function doBindingJobs() {
         // do server job
         $.adminGlob.messageHelper.sendMessage(message, {
             success: function(result) {
-                alert('메세지 전송 성공');
+//                alert('메세지 전송 성공');
                 console.log(message, result);
             }, error: function(err) {
                 GlobalVariables.Log(err);
