@@ -30,17 +30,17 @@ UserHelper.prototype.list = function (callback) {
         });
 }
 
-//UserHelper.prototype.get = function (id, callback) {
-//    this.table.where({ squareId: id })
-//        .read()
-//        .done(function (results) {
-//            if (callback.success != null)
-//                callback.success(results);
-//        }, function (err) {
-//            if (callback.error != null)
-//                callback.error(err);
-//        });
-//}
+UserHelper.prototype.get = function (id, callback) {
+    this.table.where({ squareId: id })
+        .read()
+        .done(function (results) {
+            if (callback.success != null)
+                callback.success(results);
+        }, function (err) {
+            if (callback.error != null)
+                callback.error(err);
+        });
+}
 
 UserHelper.prototype.update = function (user, callback) {
 	delete user["requestType"];
@@ -98,7 +98,7 @@ SquareHelper.prototype.getSqure = function (id, callback) {
             }
             else {
                 if (callback.error != null)
-                    callback.error(err);
+                    callback.error(results);
             }
         }, function (err) {
             if (callback.error != null)

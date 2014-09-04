@@ -2,36 +2,35 @@
  * Created by hongkunyoo on 2014. 8. 30..
  */
 $(function($){
-    var param = {};
+    $.ownerGlob = {};
     var filter_arr = ['id', 'age', 'nickName', 'isMale','companyNum', 'isChupaEnable', 'enterTime'];
     var owner = {};
-    owner.sender = "owner";
+    owner.sender = "관리자";
     owner.senderId = "id";
-    param.owner = owner;
+    $.ownerGlob.owner = owner;
 
 
     var id = window.location.search.split("&")[0];
     id = id.split("=")[1];
     mask.open();
 //    $('#pbar').css("display", "block");
-    var mClient = new MobileClient(GlobalVariables.TEST_URL,GlobalVariables.TEST_KEY);
+    var mClient = new MobileClient(GlobalVariables.REAL_URL,GlobalVariables.REAL_KEY);
     var userHelper = new UserHelper(mClient.getClient());
     var squareHelper = new SquareHelper(mClient.getClient());
     var messageHelper = new MessageHelper(mClient.getClient());
-    param.messageHelper = messageHelper;
-    param.squareHelper = squareHelper;
-    var userGrid = makeUserGrid(param);
-
+    $.ownerGlob.messageHelper = messageHelper;
+    $.ownerGlob.squareHelper = squareHelper;
+    var userGrid = makeUserGrid();
     ///////////////////////////////
     // Set up Default Dash Board
     ///////////////////////////////
     squareHelper.getSqure(id, {
         success: function(result) {
-            owner.square = result;
+            $.ownerGlob.owner.square = result;
             $('#nick_name').text(result.whoMade);
             $('#name').text(result.name);
             $('#code').val(result.code);
-            userHelper.list(owner.square.id, {
+            userHelper.get($.ownerGlob.owner.square.id, {
                 success: function(results) {
 
                     results = results.map(function(item){
@@ -70,10 +69,10 @@ $(function($){
     /////////////////////////////////
     // Set up Key Event Binding Jobs
     /////////////////////////////////
-    doKeyBindingJobs(param);
+    doKeyBindingJobs();
 });
 
-function doKeyBindingJobs(param) {
+function doKeyBindingJobs() {
 
     /*
         send Admin Message to All
@@ -86,7 +85,7 @@ function doKeyBindingJobs(param) {
     });
 
     $('#admin_message_btn').click(function(evt){
-        send_ADMIN_MESSAGE_ALL(param);
+        send_ADMIN_MESSAGE_ALL();
     });
 
 
@@ -99,12 +98,12 @@ function doKeyBindingJobs(param) {
      send Admin Message to individual
      */
     $('#message_dialog_btn').click(function(evt){
-        send_ADMIN_MESSAGE(param);
+        send_ADMIN_MESSAGE();
     });
 
     $('#message_dialog_input').keypress(function(evt){
         if ( evt.which == 13 ) {
-            send_ADMIN_MESSAGE(param);
+            send_ADMIN_MESSAGE();
             evt.preventDefault();
         }
     });
@@ -117,10 +116,10 @@ function doKeyBindingJobs(param) {
         $('#code').unbind( "click" );
         $('#code_btn_ok').click(function(e){
             var newCode = $('#code').val();
-            if (param.owner.square.code != newCode) {
-                param.owner.square.code = newCode;
+            if ($.ownerGlob.owner.square.code != newCode) {
+                $.ownerGlob.owner.square.code = newCode;
                 mask.open();
-                param.squareHelper.update(param.owner.square, {
+                $.ownerGlob.squareHelper.update($.ownerGlob.owner.square, {
                     success: function(result) {
                         $('#code').val(newCode);
                         $('#code').attr("type","button");
@@ -140,7 +139,7 @@ function doKeyBindingJobs(param) {
         });
         $('#code_btn_cancel').click(function(e){
             $('#code').attr("type","button");
-            $('#code').val(param.owner.square.code);
+            $('#code').val($.ownerGlob.owner.square.code);
             $('#code').click(onCodeClick);
             $('#code_btn_ok').remove();
             $('#code_btn_cancel').remove();
@@ -149,24 +148,24 @@ function doKeyBindingJobs(param) {
     }
     $('#code').click(onCodeClick);
 }
-function send_ADMIN_MESSAGE_ALL(param) {
+function send_ADMIN_MESSAGE_ALL() {
 
     var content = $('#admin_message_input').val();
     $('#admin_message_input').val("");
-    var id = param.owner.square.id;
+    var id = $.ownerGlob.owner.square.id;
     var type = AhMessage.TYPE.ADMIN_MESSAGE;
 
     var message = new AhMessage.Builder()
         .setType(type)
         .setContent(content)
-        .setSender(param.owner.sender)
-        .setSenderId(param.owner.senderId)
+        .setSender($.ownerGlob.owner.sender)
+        .setSenderId($.ownerGlob.owner.senderId)
         .setReceiver("")
         .setReceiverId(id)
         .build()
     console.log(message);
     // do server job
-    param.messageHelper.sendMessage(message, {
+    $.ownerGlob.messageHelper.sendMessage(message, {
         success: function(result) {
             alert('전제 공지를 전송하였습니다.');
 
@@ -178,7 +177,7 @@ function send_ADMIN_MESSAGE_ALL(param) {
     });
 }
 
-function send_ADMIN_MESSAGE(param) {
+function send_ADMIN_MESSAGE() {
 
     var content = $('#message_dialog_input').val();
     $('#message_dialog_input').val("");
@@ -189,14 +188,14 @@ function send_ADMIN_MESSAGE(param) {
     var message = new AhMessage.Builder()
         .setType(type)
         .setContent(content)
-        .setSender(param.owner.sender)
-        .setSenderId(param.owner.senderId)
+        .setSender($.ownerGlob.owner.sender)
+        .setSenderId($.ownerGlob.owner.senderId)
         .setReceiver("")
         .setReceiverId(id)
         .build()
 
     // do server job
-    param.messageHelper.sendMessage(message, {
+    $.ownerGlob.messageHelper.sendMessage(message, {
         success: function(result) {
             alert('메세지를 전송하였습니다.');
 //            GlobalVariables.Log(result);
@@ -212,7 +211,7 @@ function send_ADMIN_MESSAGE(param) {
 /////////////////////////////////
 // Make User Grid Method
 /////////////////////////////////
-function makeUserGrid(param) {
+function makeUserGrid() {
 
     var myModal = new AXModal();
     myModal.setConfig({
@@ -220,6 +219,7 @@ function makeUserGrid(param) {
         displayLoading:true
     });
     var userGrid = new AXGrid();
+    $.ownerGlob.userGrid;
     userGrid.setConfig({
         targetID : "UserGrid",
         colGroup : [
@@ -238,8 +238,8 @@ function makeUserGrid(param) {
                 // squareGrid.setEditor(this.item, 1);
             },
             oncheck: function(){
-                userGrid.checkedColSeq(this.c, false);
-                userGrid.checkedColSeq(this.c, true, this.index);
+//                userGrid.checkedColSeq(this.c, false);
+//                userGrid.checkedColSeq(this.c, true, this.index);
             }
         },
         editor: {
@@ -296,14 +296,14 @@ function makeUserGrid(param) {
                             var message = new AhMessage.Builder()
                                 .setType(AhMessage.TYPE.FORCED_LOGOUT)
                                 .setContent("FORCED_LOGOUT")
-                                .setSender(param.owner.sender)
-                                .setSenderId(param.owner.senderId)
+                                .setSender($.ownerGlob.owner.sender)
+                                .setSenderId($.ownerGlob.owner.senderId)
                                 .setReceiver(this.sendObj.item.nickName)
                                 .setReceiverId(this.sendObj.item.id)
                                 .build()
 
                             // do server job
-                            param.messageHelper.sendMessage(message, {
+                            $.ownerGlob.messageHelper.sendMessage(message, {
                                 success: function(result) {
                                     removeList.push({id:message.receiverId});
                                     userGrid.removeList(removeList);

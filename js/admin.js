@@ -307,7 +307,7 @@ function onCreateAhUserGrid() {
                 },
                 {
                     userType:1, label:"상세보기", className:"docline", onclick:function(){
-
+                        if (!this.sendObj) return;
                         $("#detail_dialog").css("display", "block");
                         var item = this.sendObj.item;
                         var message = "";
@@ -480,6 +480,8 @@ function onCreateSquareGrid() {
                 },
                 {
                     userType:1, label:"상세보기", className:"docline", onclick:function(){
+
+                        if (!this.sendObj) return;
                         $("#detail_dialog").css("display", "block");
                         var item = this.sendObj.item;
                         var message = "";
@@ -811,7 +813,7 @@ function doBindingJobs() {
         $.adminGlob.messageHelper.sendMessage(message, {
             success: function(result) {
 //                alert('메세지 전송 성공');
-                console.log(message, result);
+                console.log(message);
             }, error: function(err) {
                 GlobalVariables.Log(err);
                 console.log(err);
