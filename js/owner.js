@@ -6,7 +6,7 @@ $(function($){
     var filter_arr = ['id', 'age', 'nickName', 'isMale','companyNum', 'isChupaEnable', 'enterTime'];
     var owner = {};
     owner.sender = "관리자";
-    owner.senderId = "id";
+    owner.senderId = GlobalVariables.OWNER.senderId
     $.ownerGlob.owner = owner;
 
 
@@ -32,7 +32,6 @@ $(function($){
             $('#code').val(result.code);
             userHelper.get($.ownerGlob.owner.square.id, {
                 success: function(results) {
-
                     results = results.map(function(item){
                         item["isMale"] = item["isMale"] ? "남" : "여";
                         item["isChupaEnable"] = item["isChupaEnable"] ? "ON" : "OFF";

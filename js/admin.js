@@ -152,7 +152,6 @@ function onCreateAhUserGrid() {
             {key:"squareId", label:"squareId", width:"130", align: "center"},
             {key:"ahIdUserKey", label:"ahIdUserKey", width:"130", align: "center"},
             {key:"isChupaEnable", label:"ChupaEnable", width:"130", align: "center"},
-            {key:"isChatEnable", label:"ChatEnable", width:"120", align: "center"},
             {key:"registrationId", label:"registrationId", width:"70", align: "center"},
             {key:"mobileId", label:"mobileId", width:"70", align: "center"},
             {key:"profilePic", label:"profilePic", width:"70", align: "center"}
@@ -201,14 +200,9 @@ function onCreateAhUserGrid() {
                         {value:'false', text:'false'}
                     ]}
                     },
-                    {colSeq:7, align:"center", valign:"middle", form:{type:"select", options:[
-                        {value:'true', text:'true'},
-                        {value:'false', text:'false'}
-                    ]}
-                    },
+                    {colSeq:7, align:"center", valign:"middle",formatter: null},
                     {colSeq:8, align:"center", valign:"middle",formatter: null},
-                    {colSeq:9, align:"center", valign:"middle",formatter: null},
-                    {colSeq:10, align:"center", valign:"middle",formatter: null}
+                    {colSeq:9, align:"center", valign:"middle",formatter: null}
                 ]
             ],
             response: function(){ // ajax 응답에 대해 예외 처리 필요시 response 구현
