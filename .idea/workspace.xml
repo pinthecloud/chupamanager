@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="owner.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="owner.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/owner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="5205">
-              <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.33584338" vertical-offset="1037" max-vertical-offset="5205">
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -63,10 +63,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="admin.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.4171686" vertical-offset="0" max-vertical-offset="12990">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12990">
               <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding />
             </state>
@@ -122,8 +122,8 @@
         <option value="$PROJECT_DIR$/page/admin.html" />
         <option value="$PROJECT_DIR$/js/helper.js" />
         <option value="$PROJECT_DIR$/page/owner.html" />
-        <option value="$PROJECT_DIR$/js/owner.js" />
         <option value="$PROJECT_DIR$/js/admin.js" />
+        <option value="$PROJECT_DIR$/js/owner.js" />
       </list>
     </option>
   </component>
@@ -673,22 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/page/owner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75" vertical-offset="705" max-vertical-offset="1455">
-          <caret line="61" column="142" selection-start-line="61" selection-start-column="125" selection-end-line="61" selection-end-column="142" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/owner.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="5205">
-          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/page/admin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.125" vertical-offset="672" max-vertical-offset="1950">
@@ -730,8 +714,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4171686" vertical-offset="0" max-vertical-offset="12990">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12990">
           <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page/owner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75" vertical-offset="705" max-vertical-offset="1455">
+          <caret line="61" column="142" selection-start-line="61" selection-start-column="125" selection-end-line="61" selection-end-column="142" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/owner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33584338" vertical-offset="1037" max-vertical-offset="5205">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding />
         </state>
       </provider>

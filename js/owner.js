@@ -78,7 +78,7 @@ function doKeyBindingJobs() {
      */
     $('#admin_message_input').keypress(function(evt){
         if ( evt.which == 13 ) {
-            send_ADMIN_MESSAGE_ALL(param);
+            send_ADMIN_MESSAGE_ALL();
             evt.preventDefault();
         }
     });
