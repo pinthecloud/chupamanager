@@ -381,7 +381,19 @@ function onCreateSquareGrid() {
                     },
                     {colSeq:4, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}},
                     {colSeq:5, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
-                    {colSeq:6, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}}
+                    {colSeq:6, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
+                    {colSeq:7, align:"center", valign:"bottom",
+                        formatter: function() {
+                            return 0;
+                        }},
+                    {colSeq:8, align:"center", valign:"bottom",
+                        formatter: function() {
+                            return 0;
+                        }},
+                    {colSeq:9, align:"center", valign:"bottom",
+                        formatter: function() {
+                            return 0;
+                        }}
                 ]
             ],
             response: function(){ // ajax 응답에 대해 예외 처리 필요시 response 구현

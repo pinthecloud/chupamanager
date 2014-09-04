@@ -66,8 +66,8 @@
       <file leaf-file-name="admin.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.310241" vertical-offset="5670" max-vertical-offset="12480">
-              <caret line="320" column="21" selection-start-line="320" selection-start-column="21" selection-end-line="320" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.72289157" vertical-offset="5445" max-vertical-offset="12660">
+              <caret line="395" column="26" selection-start-line="395" selection-start-column="26" selection-end-line="395" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -121,9 +121,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/page/admin.html" />
         <option value="$PROJECT_DIR$/js/helper.js" />
-        <option value="$PROJECT_DIR$/js/admin.js" />
         <option value="$PROJECT_DIR$/page/owner.html" />
         <option value="$PROJECT_DIR$/js/owner.js" />
+        <option value="$PROJECT_DIR$/js/admin.js" />
       </list>
     </option>
   </component>
@@ -722,8 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.310241" vertical-offset="5670" max-vertical-offset="12480">
-          <caret line="320" column="21" selection-start-line="320" selection-start-column="21" selection-end-line="320" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.72289157" vertical-offset="5445" max-vertical-offset="12660">
+          <caret line="395" column="26" selection-start-line="395" selection-start-column="26" selection-end-line="395" selection-end-column="26" />
           <folding />
         </state>
       </provider>
