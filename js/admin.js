@@ -35,11 +35,14 @@ $(function() {
 
     doBindingJobs();
 
-    initTestServer();
 
     var index = localStorage.tabIndex;
     if (index == undefined) index = 0;
     $( "#tabs" ).tabs({ active: index });
+
+    if (index == 0) {
+        initTestServer();
+    }
 });
 
 /*
@@ -105,7 +108,20 @@ function doCommonServerInit() {
 
     $.adminGlob.squareHelper.list({
         success: function(results) {
+//            var ddd = {id : "id",
+//                    name : "name",
+//                whoMade:"whoMade",
+//                isAdmin:"isAdmin",
+//                code:"code",
+//                maleNum:"maleNum",
+//                femaleNum:"femaleNum",
+//                longitude:"longitude",
+//                latitude:"latitude",
+//                distance:"distance"};
+//            var arr = [ddd];
+//            arr = arr.concat(results);
             $.adminGlob.squareGrid.setList(results);
+            $.adminGlob.squareGrid.removeList([{id: "id"}]);
         }, error: function(err) {
             GlobalVariables.Log(err);
         }
@@ -256,7 +272,13 @@ function onCreateAhUserGrid() {
                                 success: function(result) {
                                     $.adminGlob.userHelper.list({
                                         success: function(results) {
-                                            $.adminGlob.ahUserGrid.setList(results);
+                                            $.adminGlob.userHelper.list({
+                                                success: function(_results) {
+                                                    $.adminGlob.ahUserGrid.setList(_results);
+                                                }, error: function(err) {
+                                                    GlobalVariables.Log(err);
+                                                }
+                                            });
                                         }, error: function(err) {
                                             GlobalVariables.Log(err);
                                         }
@@ -477,7 +499,7 @@ function onCreateSquareGrid() {
                 },
                 {
                     userType:1, label:"수정하기", className:"edit", onclick:function(){
-
+                        console.log(this, this.sendObj);
                         if(this.sendObj){
                             squareGrid.setEditor(this.sendObj.item, this.sendObj.index);
                             $('#SquareGrid_AX_editorButtons').css({top: "40px"});
