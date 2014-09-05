@@ -165,6 +165,7 @@ function onCreateAhUserGrid() {
             {key:"nickName", label:"nickName", width:"180", align: "center"},
             {key:"isMale", label:"isMale", width:"100", align: "center"},
             {key:"age", label:"age", width:"80", align: "center"},
+            {key:"companyNum", label:"companyNum", width:"120", align: "center"},
             {key:"squareId", label:"squareId", width:"130", align: "center"},
             {key:"ahIdUserKey", label:"ahIdUserKey", width:"130", align: "center"},
             {key:"isChupaEnable", label:"ChupaEnable", width:"130", align: "center"},
@@ -199,26 +200,27 @@ function onCreateAhUserGrid() {
                     ]}
                     },
                     {colSeq:3, align:"center", valign:"middle", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
+                    {colSeq:4, align:"center", valign:"middle", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {
-                        colSeq:4, align:"center", valign:"middle",
+                        colSeq:5, align:"center", valign:"middle",
                         formatter: function(){
                             return this.item.squareId;
                         }
                     },
                     {
-                        colSeq:5, align:"center", valign:"middle",
+                        colSeq:6, align:"center", valign:"middle",
                         formatter: function(){
                             return this.item.ahIdUserKey;
                         }
                     },
-                    {colSeq:6, align:"center", valign:"middle", form:{type:"select", options:[
+                    {colSeq:7, align:"center", valign:"middle", form:{type:"select", options:[
                         {value:'true', text:'true'},
                         {value:'false', text:'false'}
                     ]}
                     },
-                    {colSeq:7, align:"center", valign:"middle",formatter: null},
                     {colSeq:8, align:"center", valign:"middle",formatter: null},
-                    {colSeq:9, align:"center", valign:"middle",formatter: null}
+                    {colSeq:9, align:"center", valign:"middle",formatter: null},
+                    {colSeq:10, align:"center", valign:"middle",formatter: null}
                 ]
             ],
             response: function(){ // ajax 응답에 대해 예외 처리 필요시 response 구현
