@@ -28,6 +28,7 @@
         <center>
             <img src='./img/splash_copy.png'/>
             <div>
+                <form>
                 <table>
                     <tr>
                         <td><label>ID<label></td>
@@ -42,6 +43,7 @@
                         <td><input id='id_btn' type='button' value='Login' style='width: 100%; background-color:#D6003B; font-size: large;'/></td>
                     </tr>
                 </table>
+                </form>
             </div>
         </center>
 
@@ -67,31 +69,41 @@
                 }
             });
 
+//            if (localStorage.set == 1) {
+//                $('#id_id').val("pinthecloud");
+//                $('#id_pw').val("gcw1234!");
+//            }
+
             function check () {
                 var idVal = $('#id_id').val();
                 var pwVal = $('#id_pw').val();
                 var goFlag = false;
 
 
-                if (idVal == 'pinthecloud' && pwVal == 'gcw1234!') {
-                    window.location.href = 'page/admin.html';
-                    return;   
-                }
-
-                if (idVal != pwVal) {
-                    alert('존재하지 않는 유저입니다.');
-                    return;
-                }
-                
                 for (var i = 0 ; i < list.length ; i++) {
-                    
-                    if (list[i].whoMade == idVal) {
+
+                    if (list[i].whoMade == idVal && list[i].whoMade == pwVal) {
                         window.location.href = './page/owner.html?id='+list[i].id;
                         return;
                     }
-                        
-                }    
-                alert('존재하지 않는 유저입니다.');
+
+                }
+
+                mClient.login({id: idVal, password: pwVal}, {
+                    success: function(result) {
+                        console.log(result.response == 'true', typeof(result.response));
+                        if (result.response == 'true') {
+                            window.location.href = 'page/admin.html';
+                            localStorage.setItem("set", 1);
+                            return;
+                        } else {
+                            alert('존재하지 않는 유저입니다.');
+
+                        }
+                    }, error: function(err) {
+                        GlobalVariables.Log(err);
+                    }
+                });
             }
             
             $('#id_btn').click(function () {

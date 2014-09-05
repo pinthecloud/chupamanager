@@ -809,7 +809,18 @@ function doBindingJobs() {
 
     });
 
+
+    $('#message_content').keypress(function(evt){
+        if ( evt.which == 13 ) {
+            _sendMessage();
+        }
+    });
+
     $('#message_send').click(function(evt){
+        _sendMessage();
+    });
+
+    function _sendMessage() {
         var type = $('#message_type').val();
         var fromId = $('#message_from').children(":selected").attr("id");
         var toId   = $('#message_to').children(":selected").attr("id");
@@ -849,10 +860,7 @@ function doBindingJobs() {
         });
 
         $('#message_content').val('');
-//        $('#message_send').attr('disabled', 'disabled');
-    });
-
-
+    }
 
 }
 
