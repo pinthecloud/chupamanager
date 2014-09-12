@@ -229,6 +229,71 @@ textarea {
     display: inline-block;
     -webkit-writing-mode: horizontal-tb;
 }
+
+
+
+
+#message_list_div {
+
+
+}
+
+#message_list_div input {
+    font-size: small;
+    width: 150px;
+}
+#message_list {
+    background-image:url(/chupamanager/img/bg_chat_pattern.png);
+    width: 300px;
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.message_container {
+    border: 1px solid;
+    border-radius: 18px;
+    padding : 5px;
+    font-size: small;
+    margin: 3px;
+}
+.message_pic {
+    display: inline;
+    vertical-align: middle;
+}
+.message_pic img{
+    display: inline-block;
+    /**display: inline; *//* for older IE */
+    /**zoom: 1; *//* for older IE */
+    width: 20%;
+    height: 20%;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+.message_info{
+    display: inline;
+}
+.message_detail{
+    display: inline;
+}
+.message_sender {
+    display: inline;
+}
+.message_gender {
+    display: inline;
+}
+.message_age {
+    display: inline;
+}
+.message_time {
+    display: inline;
+}
+.message_content {
+    margin-left : 80px;
+}
+
+
+
+
 /*//.AXContextMenu .contextMenuItem.first {*/
 /*//.AXContextMenu .contextMenuItem.last {*/
 /*//.AXContextMenu .contextMenuItem.doc {*/

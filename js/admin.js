@@ -50,7 +50,7 @@ $(function() {
  */
 function onTestServerClick(old, _new) {
     $('#tabs_0 div').replaceWith($('#'+old).children()[0]);
-    $('#'+old).append('<div></div>');
+    $('#'+old).prepend('<div></div>');
     localStorage.setItem("tabIndex", 0);
     $('#tabs_0 div').show();
     initTestServer();
@@ -58,17 +58,17 @@ function onTestServerClick(old, _new) {
 
 function onRealSeverClick(old, _new) {
     $('#tabs_1 div').replaceWith($('#'+old).children()[0]);
-    $('#'+old).append('<div></div>');
+    $('#'+old).prepend('<div></div>');
     localStorage.setItem("tabIndex", 1);
     $('#tabs_1 div').show();
     initRealServer();
 }
 
 function onStatisticsClick(old, _new) {
-    $('#tabs_2 div').replaceWith($('#'+old).children()[0]);
-    $('#'+old).append('<div></div>');
+    $('#tabs_2 div:first').replaceWith($('#'+old).children()[0]);
+    $('#'+old).prepend('<div></div>');
     localStorage.setItem("tabIndex", 2);
-    $('#tabs_2 div').hide();
+    $('#tabs_2 div:first').hide();
     initStatistics();
 }
 
@@ -86,8 +86,101 @@ function initRealServer() {
 }
 
 function initStatistics() {
+    $.adminGlob.client = new MobileClient(GlobalVariables.REAL_URL, GlobalVariables.REAL_KEY);
+    $.adminGlob.userHelper = new UserHelper($.adminGlob.client.getClient());
+    $.adminGlob.squareHelper = new SquareHelper($.adminGlob.client.getClient());
+    $.adminGlob.messageHelper = new MessageHelper($.adminGlob.client.getClient());
+    $.adminGlob.ahIdUserHelper = new AhIdUserHelper($.adminGlob.client.getClient());
+    $.adminGlob.appVersionHelper = new AppVersionHelper($.adminGlob.client.getClient());
+    $.adminGlob.logHelper = new LogHelper($.adminGlob.client.getClient());
 
-//    localStorage.setItem("body", $(this).children()[0]);
+    $.adminGlob.logHelper.listByMethod(LogHelper.METHOD.ENTER, {
+        success: function(userList) {
+            $.adminGlob.logHelper.userList = userList;
+            doStatsBindingJobs();
+        }, error: function(err) {
+
+        }
+    });
+}
+
+function setMessageUI(item) {
+//    {
+//        "id":"69EB8FFC-941C-43FC-868B-6BEB188D7F1E",
+//        "event_name":"MESSAGE"
+//        ,"event_method":"EXECUTE",
+//        "event_time":"2014-09-06[07:35:11]",
+//        "event_time_int":20140906073511,
+//        "type":"ENTER_SQUARE",
+//        "content":"라라라 님이 그라운드에 들어왔어요.",
+//        "sender":"라라라",
+//        "senderId":"77AFD8AB-AD4F-4275-A896-22B74346EB37",
+//        "receiverId":"F4708BA9-5EED-4E5B-AB16-C315966F2812",
+//        "chupaCommunId":"F4708BA9-5EED-4E5B-AB16-C315966F281277AFD8AB-AD4F-4275-A896-22B74346EB37"
+//    }
+    var user = $.adminGlob.logHelper.getUserLocal(item["senderId"]);
+
+    if (user == null) {
+        user = {
+            id : "276668BC-1C16-4B6A-A05D-9EE32CDED887",
+            isMale : true,
+            age : 25
+        };
+    }
+    user.id = "276668BC-1C16-4B6A-A05D-9EE32CDED887";
+    var genderHtml = user.isMale ? "<img src='/chupamanager/img/chat_gender_m.png'/>" : "<img src='/chupamanager/img/chat_gender_w.png'/>";
+    var timeStr = item["event_time"].substring(5, item['event_time'].length);
+    timeStr = timeStr.substring(0, timeStr.length-4) + "]";
+    var html = "" +
+        "<div class='message_container'>" +
+            "<div class='message_pic'><img src='https://athere.blob.core.windows.net/chupaprofile/"+user.id+"'/></div>" +
+            "<div class='message_info'>" +
+                "<div class='message_detail'>" +
+                    "<div class='message_sender'>" + item["sender"] + "</div>" +
+                    "<div class='message_age'>" + user.age+ "</div>" +
+                    "<div class='message_gender'>" + genderHtml+ "</div>" +
+                "</div>" +
+                "<div class='message_time'>"+timeStr+"</div>" +
+                "<div class='message_content'>"+item["content"] +"</div>" +
+
+            "</div>" +
+        "</div>";
+
+    return html;
+}
+
+function doStatsBindingJobs() {
+    $('#message_search_btn').click(function(evt){
+        $('#message_list').empty();
+        var startDate = $('#start_date').val().replace(/-/gi, "");
+        var startTime = $('#start_time').val();
+
+        var endDate = $('#end_date').val().replace(/-/gi, "");
+        var endTime = $('#end_time').val();
+
+        var start = makeTermString(startDate, startTime);
+        var end = makeTermString(endDate, endTime);
+
+        $.adminGlob.logHelper.listByName(LogHelper.NAME.MESSAGE, {
+            success: function(results) {
+                results.filterTerm(start, end);
+                for(var i = 0 ; i < results.length ; i++) {
+                    $('#message_list').append("<div>" + setMessageUI(results[i])+"</div>");
+                }
+            }, error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+    $.each($('#message_list_div select'), function(index, value){
+        for (var i = 0 ; i < 24 ; i++)
+            $(value).append("<option value='"+i+"'>"+i+"</option>");
+    });
+
+
+
+
 }
 
 function doCommonServerInit() {
@@ -97,6 +190,7 @@ function doCommonServerInit() {
     $.adminGlob.messageHelper = new MessageHelper($.adminGlob.client.getClient());
     $.adminGlob.ahIdUserHelper = new AhIdUserHelper($.adminGlob.client.getClient());
     $.adminGlob.appVersionHelper = new AppVersionHelper($.adminGlob.client.getClient());
+    $.adminGlob.logHelper = new LogHelper($.adminGlob.client.getClient());
 
     $.adminGlob.userHelper.list({
         success: function(results) {
@@ -343,10 +437,9 @@ function onCreateAhUserGrid() {
                             closeByEscKey: true
                         });
                     }
-                },
-
+                }
             ],
-            filter:function(id){
+            filter: function(id){
                 return true;
             }
         }
@@ -864,6 +957,10 @@ function doBindingJobs() {
         $('#message_content').val('');
     }
 
+}
+
+function makeTermString(date, time) {
+    return ""+date + (LogHelper.getDigit(time) == 1 ? "0"+time : time);
 }
 
 
