@@ -97,11 +97,13 @@ function initStatistics() {
     $.adminGlob.logHelper.listByMethod(LogHelper.METHOD.ENTER, {
         success: function(userList) {
             $.adminGlob.logHelper.userList = userList;
-            doStatsBindingJobs();
+
         }, error: function(err) {
 
         }
     });
+
+    doStatsBindingJobs();
 }
 
 function setMessageUI(item) {
@@ -161,6 +163,7 @@ function doStatsBindingJobs() {
         var start = makeTermString(startDate, startTime);
         var end = makeTermString(endDate, endTime);
 
+
         $.adminGlob.logHelper.listByName(LogHelper.NAME.MESSAGE, {
             success: function(results) {
                 results.filterTerm(start, end);
@@ -172,15 +175,63 @@ function doStatsBindingJobs() {
             }
         });
     });
+//    i = 0;
+//    $('#get_log_btn').click(function(evt){
+//        $.adminGlob.logHelper.list({
+//            success: function(results) {
+//                var keys = Object.keys(results[0]);
+//                var obj = {};
+//                for (var i = 0 ; i < keys.length ; i++) {
+//                    obj["key"+i] = keys[i];
+//                }
+//                results.unshift(obj);
+//                console.log(results);
+//                DownloadJSON2CSV(results);
+//            }, error: function(err) {
+//                console.log(err);
+//            }
+//        });
+//        $.adminGlob.logHelper.table.includeTotalCount().read().done(function(results){
+//            console.log(results);
+//        });
+//
+//        var s = 50 * (i);
+//        var tt = 50;
+//        $.adminGlob.logHelper.table.skip(s).take(tt).read().done(function(results){
+//            console.log(results);
+//        });
+//        i++;
+//        console.log(i);
+//    });
 
-    $.each($('#message_list_div select'), function(index, value){
-        for (var i = 0 ; i < 24 ; i++)
-            $(value).append("<option value='"+i+"'>"+i+"</option>");
+}
+
+function DownloadJSON2CSV(objArray)
+{
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+
+    var str = '';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+
+        for (var index in array[i]) {
+            line += (array[i][index]) + ',';
+        }
+
+        // Here is an example where you would wrap the values in double quotes
+        // for (var index in array[i]) {
+        //    line += '"' + array[i][index] + '",';
+        // }
+
+        line.slice(0,line.length-1);
+
+        str += line + '\r\n';
+    }
+    var blob = new Blob([str], {
+        type: "text/csv;charset=utf-8;"
     });
-
-
-
-
+    saveAs(blob, "thing.csv");
 }
 
 function doCommonServerInit() {

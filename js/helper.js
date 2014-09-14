@@ -313,8 +313,8 @@ LogHelper.METHOD = {
 LogHelper.prototype.list = function(callback) {
     this.table.read()
         .done(function (results) {
+            console.log(results.length);
             if (callback.success != undefined) {
-                results = LogHelper.removeUnusedItem(results);
                 callback.success(results);
             }
         }, function (err) {
@@ -328,7 +328,6 @@ LogHelper.prototype.listByName = function(name, callback) {
         .read()
         .done(function (results) {
             if (callback.success != undefined) {
-                results = LogHelper.removeUnusedItem(results);
                 callback.success(results);
             }
         }, function (err) {
@@ -342,7 +341,6 @@ LogHelper.prototype.listByMethod = function(method, callback) {
         .read()
         .done(function (results) {
             if (callback.success != undefined) {
-                results = LogHelper.removeUnusedItem(results);
                 callback.success(results);
             }
         }, function (err) {
@@ -405,9 +403,10 @@ Array.prototype.filterTerm = function(start, end) {
 
     var start = LogHelper.fillZero(start, 14);
     var end = LogHelper.fillZero(end, 14);
-
+    console.log(start, end);
     return this.filter(function(item){
         if (item['event_time_int'] >= start && item['event_time_int'] <= end) {
+            console.log(item['event_time']);
             return item;
         }
     });
