@@ -106,52 +106,15 @@ function initStatistics() {
     doStatsBindingJobs();
 }
 
-function setMessageUI(item) {
-//    {
-//        "id":"69EB8FFC-941C-43FC-868B-6BEB188D7F1E",
-//        "event_name":"MESSAGE"
-//        ,"event_method":"EXECUTE",
-//        "event_time":"2014-09-06[07:35:11]",
-//        "event_time_int":20140906073511,
-//        "type":"ENTER_SQUARE",
-//        "content":"라라라 님이 그라운드에 들어왔어요.",
-//        "sender":"라라라",
-//        "senderId":"77AFD8AB-AD4F-4275-A896-22B74346EB37",
-//        "receiverId":"F4708BA9-5EED-4E5B-AB16-C315966F2812",
-//        "chupaCommunId":"F4708BA9-5EED-4E5B-AB16-C315966F281277AFD8AB-AD4F-4275-A896-22B74346EB37"
-//    }
-    var user = $.adminGlob.logHelper.getUserLocal(item["senderId"]);
-
-    if (user == null) {
-        user = {
-            id : "276668BC-1C16-4B6A-A05D-9EE32CDED887",
-            isMale : true,
-            age : 25
-        };
-    }
-    user.id = "276668BC-1C16-4B6A-A05D-9EE32CDED887";
-    var genderHtml = user.isMale ? "<img src='/chupamanager/img/chat_gender_m.png'/>" : "<img src='/chupamanager/img/chat_gender_w.png'/>";
-    var timeStr = item["event_time"].substring(5, item['event_time'].length);
-    timeStr = timeStr.substring(0, timeStr.length-4) + "]";
-    var html = "" +
-        "<div class='message_container'>" +
-            "<div class='message_pic'><img src='https://athere.blob.core.windows.net/chupaprofile/"+user.id+"'/></div>" +
-            "<div class='message_info'>" +
-                "<div class='message_detail'>" +
-                    "<div class='message_sender'>" + item["sender"] + "</div>" +
-                    "<div class='message_age'>" + user.age+ "</div>" +
-                    "<div class='message_gender'>" + genderHtml+ "</div>" +
-                "</div>" +
-                "<div class='message_time'>"+timeStr+"</div>" +
-                "<div class='message_content'>"+item["content"] +"</div>" +
-
-            "</div>" +
-        "</div>";
-
-    return html;
-}
-
 function doStatsBindingJobs() {
+
+    $.each($('#message_list_div select'), function(index, value){
+        for(var i = 0 ; i < 24 ; i++) {
+            $(this).append("<option value='"+i+"'>"+i+"</option>");
+        }
+    });
+
+
     $('#message_search_btn').click(function(evt){
         $('#message_list').empty();
         var startDate = $('#start_date').val().replace(/-/gi, "");
@@ -166,8 +129,10 @@ function doStatsBindingJobs() {
 
         $.adminGlob.logHelper.listByName(LogHelper.NAME.MESSAGE, {
             success: function(results) {
-                results.filterTerm(start, end);
+                results = results.filterTerm(start, end);
                 for(var i = 0 ; i < results.length ; i++) {
+//                    $.adminGlob.logHelper.
+//                    item["senderId"]
                     $('#message_list').append("<div>" + setMessageUI(results[i])+"</div>");
                 }
             }, error: function(err) {
@@ -175,6 +140,13 @@ function doStatsBindingJobs() {
             }
         });
     });
+
+
+
+//    $("#message_list").scroll(function(e){
+//        console.log(e);
+//        console.log($(this).children().last());
+//    });
 //    i = 0;
 //    $('#get_log_btn').click(function(evt){
 //        $.adminGlob.logHelper.list({
@@ -204,6 +176,52 @@ function doStatsBindingJobs() {
 //        console.log(i);
 //    });
 
+}
+
+
+function setMessageUI(item) {
+//    {
+//        "id":"69EB8FFC-941C-43FC-868B-6BEB188D7F1E",
+//        "event_name":"MESSAGE"
+//        ,"event_method":"EXECUTE",
+//        "event_time":"2014-09-06[07:35:11]",
+//        "event_time_int":20140906073511,
+//        "type":"ENTER_SQUARE",
+//        "content":"라라라 님이 그라운드에 들어왔어요.",
+//        "sender":"라라라",
+//        "senderId":"77AFD8AB-AD4F-4275-A896-22B74346EB37",
+//        "receiverId":"F4708BA9-5EED-4E5B-AB16-C315966F2812",
+//        "chupaCommunId":"F4708BA9-5EED-4E5B-AB16-C315966F281277AFD8AB-AD4F-4275-A896-22B74346EB37"
+//    }
+    var user = $.adminGlob.logHelper.getUserLocal(item["senderId"]);
+
+    if (user == null) {
+        user = {
+            id : "276668BC-1C16-4B6A-A05D-9EE32CDED887",
+            isMale : true,
+            age : 25
+        };
+    }
+//    user.id = "276668BC-1C16-4B6A-A05D-9EE32CDED887";
+    var genderHtml = user.isMale ? "<img src='/chupamanager/img/chat_gender_m.png'/>" : "<img src='/chupamanager/img/chat_gender_w.png'/>";
+    var timeStr = item["event_time"].substring(5, item['event_time'].length);
+    timeStr = timeStr.substring(0, timeStr.length-4) + "]";
+    var html = "" +
+        "<div class='message_container'>" +
+        "<div class='message_pic'><img src='https://athere.blob.core.windows.net/chupaprofile/"+user.id+"'/></div>" +
+        "<div class='message_info'>" +
+        "<div class='message_detail'>" +
+        "<div class='message_sender'>" + item["sender"] + "</div>" +
+        "<div class='message_age'>[" + user.age+ "]</div>" +
+        "<div class='message_gender'>" + genderHtml+ "</div>" +
+        "</div>" +
+        "<div class='message_time'>"+timeStr+"</div>" +
+        "<div class='message_content'>"+item["content"] +"</div>" +
+
+        "</div>" +
+        "</div>";
+
+    return html;
 }
 
 function DownloadJSON2CSV(objArray)
@@ -510,16 +528,16 @@ function onCreateSquareGrid() {
         targetID : "SquareGrid",
         // fitToWidth:true,
         colGroup : [
-            {key:"id", label:"id", width:"100", align:"middle"},
-            {key:"name", label:"name", width:"180"},
-            {key:"whoMade", label:"whoMade", width:"180"},
-            {key:"isAdmin", label:"isAdmin", width:"100"},
-            {key:"code", label:"code", width:"130"},
-            {key:"maleNum", label:"maleNum", width:"130"},
-            {key:"femaleNum", label:"femaleNum", width:"130"},
-            {key:"longitude", label:"longitude", width:"70"},
-            {key:"latitude", label:"latitude", width:"70"},
-            {key:"distance", label:"distance", width:"70"}
+            {key:"id", label:"id", width:"100", align:"middle", align:"center"},
+            {key:"name", label:"name", width:"160", align:"center"},
+            {key:"whoMade", label:"whoMade", width:"160", align:"center"},
+            {key:"isAdmin", label:"isAdmin", width:"90", align:"center"},
+            {key:"code", label:"code", width:"120", align:"center"},
+            {key:"maleNum", label:"maleNum", width:"100", align:"center"},
+            {key:"femaleNum", label:"femaleNum", width:"100", align:"center"},
+            {key:"longitude", label:"longitude", width:"120", align:"center"},
+            {key:"latitude", label:"latitude", width:"120", align:"center"},
+            {key:"distance", label:"distance", width:"70", align:"center"}
         ],
         colHeadAlign:"center",
         body : {
@@ -550,14 +568,8 @@ function onCreateSquareGrid() {
                     {colSeq:4, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}},
                     {colSeq:5, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {colSeq:6, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
-                    {colSeq:7, align:"center", valign:"bottom",
-                        formatter: function() {
-                            return 0;
-                        }},
-                    {colSeq:8, align:"center", valign:"bottom",
-                        formatter: function() {
-                            return 0;
-                        }},
+                    {colSeq:7, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
+                    {colSeq:8, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {colSeq:9, align:"center", valign:"bottom",
                         formatter: function() {
                             return 0;

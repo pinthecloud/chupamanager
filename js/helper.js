@@ -403,10 +403,8 @@ Array.prototype.filterTerm = function(start, end) {
 
     var start = LogHelper.fillZero(start, 14);
     var end = LogHelper.fillZero(end, 14);
-    console.log(start, end);
     return this.filter(function(item){
         if (item['event_time_int'] >= start && item['event_time_int'] <= end) {
-            console.log(item['event_time']);
             return item;
         }
     });
