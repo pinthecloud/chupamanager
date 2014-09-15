@@ -6,12 +6,15 @@ $(function($){
     var filter_arr = ['id', 'age', 'nickName', 'isMale','companyNum', 'isChupaEnable', 'enterTime'];
     var owner = {};
     owner.sender = "관리자";
-    owner.senderId = GlobalVariables.OWNER.senderId
-    $.ownerGlob.owner = owner;
+//    owner.senderId = GlobalVariables.OWNER.senderId
+//    $.ownerGlob.owner = owner;
 
 
     var id = window.location.search.split("&")[0];
     id = id.split("=")[1];
+    owner.senderId = id;
+    $.ownerGlob.owner = owner;
+
     mask.open();
 //    $('#pbar').css("display", "block");
     var mClient = new MobileClient(GlobalVariables.REAL_URL,GlobalVariables.REAL_KEY);

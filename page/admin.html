@@ -116,10 +116,20 @@
                                 </div>
                             </div>
                             <div id='message_list'></div>
+                            <div><button id='message_after_btn'>Next</button><button id="export_chat">Export Chat Log</button><label id="count_label"></label></div>
                         </div>
 
                         <div id="csv_div">
-                            <button id="get_log_btn">Get Log Data</button>
+                            <div>
+                                <input id='start_date_log' type="date"/>
+                                <select id='start_time_log'></select><span style="margin-left: 8px">Hour</span>
+                            </div>
+                            <div>
+                                <input id='end_date_log' type="date"/>
+                                <select id='end_time_log'></select>
+                                <button id='message_search_btn_log'>Get Log Data</button>
+                            </div>
+                            <button id="log_next_btn">Next</button><button id="export_log_btn">Export Total Log</button><label id="count_log_label"></label>
                         </div>
                     </div>
                 </div>

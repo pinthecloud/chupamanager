@@ -89,7 +89,6 @@ UserHelper.prototype.getUserLocal = function(id) {
     var userList = UserHelper.prototype.userList;
 
     for (var i = 0 ; i < userList.length ; i++) {
-        console.log(userList[i].id, id);
         if (userList[i].id == id) return userList[i];
     }
     return null;
@@ -349,6 +348,41 @@ LogHelper.prototype.listByMethod = function(method, callback) {
         });
 };
 
+LogHelper.prototype.listLog = function(event_name, event_method, type, start, end, page, callback) {
+    if (page < 0) return;
+    this.table
+        .includeTotalCount()
+        .where(function (event_name, event_method, type, start, end) {
+            return this.event_name == event_name && this.event_method == event_method
+                && this.type == type
+                && this.event_time_int >= start && this.event_time_int <= end;
+        }, event_name, event_method, type, start, end)
+        .skip(page*100).take(100)
+        .read()
+        .done(function (results) {
+            if (callback.success != undefined) {
+                callback.success(results, results.totalCount);
+            }
+        }, function (err) {
+            if (callback.error != undefined)
+                callback.error(err);
+        });
+};
+
+LogHelper.prototype.delete = function(id, callback) {
+    this.table.del({
+        id: id
+    }).done(function () {
+        if (callback.success != undefined)
+            callback.success(null);
+    }, function (err) {
+        if (callback.error != undefined)
+            callback.error(err);
+    });
+};
+
+
+
 LogHelper.prototype.getUserLocal = function(id) {
     var userList = $.adminGlob.logHelper.userList;
 
@@ -396,6 +430,12 @@ Array.prototype.filterByMethod = function(method) {
 Array.prototype.filterAny = function(any) {
     return this.filter(function(item){
         if (item['event_name'] == any || item['event_method'] == any) return item;
+    });
+};
+
+Array.prototype.filterMessageType = function(type) {
+    return this.filter(function(item){
+        if (item['type'] == type) return item;
     });
 };
 

@@ -94,6 +94,8 @@ function initStatistics() {
     $.adminGlob.appVersionHelper = new AppVersionHelper($.adminGlob.client.getClient());
     $.adminGlob.logHelper = new LogHelper($.adminGlob.client.getClient());
 
+    $.adminGlob.page = 0;
+
     $.adminGlob.logHelper.listByMethod(LogHelper.METHOD.ENTER, {
         success: function(userList) {
             $.adminGlob.logHelper.userList = userList;
@@ -126,15 +128,39 @@ function doStatsBindingJobs() {
         var start = makeTermString(startDate, startTime);
         var end = makeTermString(endDate, endTime);
 
+        $.adminGlob.page = 0;
 
-        $.adminGlob.logHelper.listByName(LogHelper.NAME.MESSAGE, {
-            success: function(results) {
-                results = results.filterTerm(start, end);
+        $.adminGlob.logHelper.listLog(LogHelper.NAME.MESSAGE, LogHelper.METHOD.EXECUTE, AhMessage.TYPE.TALK, start, end, $.adminGlob.page, {
+            success: function(results, totalCount) {
+                $.adminGlob.messageList = results;
                 for(var i = 0 ; i < results.length ; i++) {
-//                    $.adminGlob.logHelper.
-//                    item["senderId"]
                     $('#message_list').append("<div>" + setMessageUI(results[i])+"</div>");
                 }
+                $('#count_label').text(results.length + "/" + totalCount);
+            }, error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+    $('#message_after_btn').click(function(evt){
+        var startDate = $('#start_date').val().replace(/-/gi, "");
+        var startTime = $('#start_time').val();
+
+        var endDate = $('#end_date').val().replace(/-/gi, "");
+        var endTime = $('#end_time').val();
+
+        var start = makeTermString(startDate, startTime);
+        var end = makeTermString(endDate, endTime);
+
+        $.adminGlob.page++;
+        $.adminGlob.logHelper.listLog(LogHelper.NAME.MESSAGE, LogHelper.METHOD.EXECUTE, AhMessage.TYPE.TALK, start, end, $.adminGlob.page, {
+            success: function(results, totalCount) {
+                $.adminGlob.messageList = $.merge($.adminGlob.messageList, results);
+                for(var i = 0 ; i < results.length ; i++) {
+                    $('#message_list').append("<div>" + setMessageUI(results[i])+"</div>");
+                }
+                $('#count_label').text($.adminGlob.messageList.length + "/" + totalCount);
             }, error: function(err) {
                 console.log(err);
             }
@@ -142,39 +168,23 @@ function doStatsBindingJobs() {
     });
 
 
+    $('#export_chat').click(function(evt){
+        console.log('here');
+        var startDate = $('#start_date').val();
+        var startTime = $('#start_time').val();
 
-//    $("#message_list").scroll(function(e){
-//        console.log(e);
-//        console.log($(this).children().last());
-//    });
-//    i = 0;
-//    $('#get_log_btn').click(function(evt){
-//        $.adminGlob.logHelper.list({
-//            success: function(results) {
-//                var keys = Object.keys(results[0]);
-//                var obj = {};
-//                for (var i = 0 ; i < keys.length ; i++) {
-//                    obj["key"+i] = keys[i];
-//                }
-//                results.unshift(obj);
-//                console.log(results);
-//                DownloadJSON2CSV(results);
-//            }, error: function(err) {
-//                console.log(err);
-//            }
-//        });
-//        $.adminGlob.logHelper.table.includeTotalCount().read().done(function(results){
-//            console.log(results);
-//        });
-//
-//        var s = 50 * (i);
-//        var tt = 50;
-//        $.adminGlob.logHelper.table.skip(s).take(tt).read().done(function(results){
-//            console.log(results);
-//        });
-//        i++;
-//        console.log(i);
-//    });
+        var endDate = $('#end_date').val();
+        var endTime = $('#end_time').val();
+
+        var filename = startDate + "-"+startTime + "_" + endDate + "-" + endTime;
+
+        DownloadJSON2CSV($.adminGlob.messageList, filename);
+    });
+
+
+    $('#export_log_btn').click(function(evt){
+
+    });
 
 }
 
@@ -208,7 +218,6 @@ function setMessageUI(item) {
     timeStr = timeStr.substring(0, timeStr.length-4) + "]";
     var html = "" +
         "<div class='message_container'>" +
-        "<div class='message_pic'><img src='https://athere.blob.core.windows.net/chupaprofile/"+user.id+"'/></div>" +
         "<div class='message_info'>" +
         "<div class='message_detail'>" +
         "<div class='message_sender'>" + item["sender"] + "</div>" +
@@ -224,10 +233,18 @@ function setMessageUI(item) {
     return html;
 }
 
-function DownloadJSON2CSV(objArray)
+function DownloadJSON2CSV(objArray, filename)
 {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-
+    if (filename == undefined) filename = "download";
+    console.log('in Download -1');
+    var keys = Object.keys(array[0]);
+    var obj = {};
+    for (var i = 0 ; i < keys.length ; i++) {
+        obj["key"+i] = keys[i];
+    }
+    array.unshift(obj);
+    console.log('in Download -2');
     var str = '';
 
     for (var i = 0; i < array.length; i++) {
@@ -245,11 +262,13 @@ function DownloadJSON2CSV(objArray)
         line.slice(0,line.length-1);
 
         str += line + '\r\n';
+
     }
+    console.log(filename);
     var blob = new Blob([str], {
         type: "text/csv;charset=utf-8;"
     });
-    saveAs(blob, "thing.csv");
+    saveAs(blob, filename + ".csv");
 }
 
 function doCommonServerInit() {
@@ -570,10 +589,7 @@ function onCreateSquareGrid() {
                     {colSeq:6, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {colSeq:7, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {colSeq:8, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
-                    {colSeq:9, align:"center", valign:"bottom",
-                        formatter: function() {
-                            return 0;
-                        }}
+                    {colSeq:9, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}}
                 ]
             ],
             response: function(){ // ajax 응답에 대해 예외 처리 필요시 response 구현
@@ -987,15 +1003,18 @@ function doBindingJobs() {
         var senderObj = $.ahFindById(fromId);
         var sender = senderObj.nickName;
         var senderId = senderObj.id;
-        if (fromId == GlobalVariables.OWNER.senderId) {
-            sender = GlobalVariables.OWNER.sender;
-            senderId = GlobalVariables.OWNER.senderId;
-        }
+
 
         var receiverObj = $.ahFindById(toId);
         var receiver = receiverObj.nickName;
         if (receiver == undefined) receiver = "";
         var receiverId = receiverObj.id;
+
+        // if the sender is Administrator
+        if (fromId == GlobalVariables.OWNER.senderId) {
+            sender = GlobalVariables.OWNER.sender;
+            senderId = receiverObj.squareId;
+        }
 
         var message = new AhMessage.Builder()
             .setType(type)
@@ -1023,7 +1042,8 @@ function doBindingJobs() {
 }
 
 function makeTermString(date, time) {
-    return ""+date + (LogHelper.getDigit(time) == 1 ? "0"+time : time);
+    var num = ""+date + (LogHelper.getDigit(time) == 1 ? "0"+time : time);
+    return LogHelper.fillZero(num, 14);
 }
 
 

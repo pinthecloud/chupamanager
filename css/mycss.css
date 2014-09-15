@@ -234,13 +234,23 @@ textarea {
 
 
 #message_list_div {
+    display: inline-block;
+    /*float: left;*/
+    /*clear: both;*/
+    vertical-align: top;
+}
 
-
+#csv_div {
+    display: inline-block;
+    margin-left: 100px;
+    /*float:right;*/
+    /*vertical-align: middle;*/
 }
 
 #message_list_div input {
     font-size: small;
     width: 150px;
+
 }
 #message_list {
     background-image:url(/chupamanager/img/bg_chat_pattern.png);
@@ -248,7 +258,9 @@ textarea {
     height: 500px;
     overflow: scroll;
     overflow-x: hidden;
+
 }
+
 .message_container {
     border: 1px solid;
     border-radius: 18px;
