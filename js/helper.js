@@ -371,7 +371,7 @@ LogHelper.prototype.listMessage = function(type, start, end, page, callback) {
         .where(function (type, start, end) {
             return this.event_name == LogHelper.NAME.MESSAGE
                 && this.event_method == LogHelper.METHOD.EXECUTE
-                && this.type == type
+                && (this.type == AhMessage.TYPE.TALK || this.type == AhMessage.TYPE.ENTER_SQUARE)
                 && this.event_time_int >= start && this.event_time_int <= end;
         }, type, start, end)
         .skip(page*500).take(500)

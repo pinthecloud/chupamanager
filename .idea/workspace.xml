@@ -61,7 +61,7 @@
       <file leaf-file-name="admin.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.8076923" vertical-offset="1543" max-vertical-offset="17025">
+            <state vertical-scroll-proportion="-11.538462" vertical-offset="1170" max-vertical-offset="17025">
               <caret line="98" column="36" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
               <folding />
             </state>
@@ -71,8 +71,8 @@
       <file leaf-file-name="helper.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67895544" vertical-offset="5888" max-vertical-offset="8205">
-              <caret line="422" column="20" selection-start-line="422" selection-start-column="20" selection-end-line="422" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.46971935" vertical-offset="5247" max-vertical-offset="8205">
+              <caret line="371" column="40" selection-start-line="371" selection-start-column="40" selection-end-line="371" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -699,7 +699,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.8076923" vertical-offset="1543" max-vertical-offset="17025">
+        <state vertical-scroll-proportion="-11.538462" vertical-offset="1170" max-vertical-offset="17025">
           <caret line="98" column="36" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
           <folding />
         </state>
@@ -707,8 +707,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/helper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67895544" vertical-offset="5888" max-vertical-offset="8205">
-          <caret line="422" column="20" selection-start-line="422" selection-start-column="20" selection-end-line="422" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.46971935" vertical-offset="5247" max-vertical-offset="8205">
+          <caret line="371" column="40" selection-start-line="371" selection-start-column="40" selection-end-line="371" selection-end-column="40" />
           <folding />
         </state>
       </provider>
