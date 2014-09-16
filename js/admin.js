@@ -130,7 +130,7 @@ function doStatsBindingJobs() {
 
         $.adminGlob.page = 0;
 
-        $.adminGlob.logHelper.listLog(LogHelper.NAME.MESSAGE, LogHelper.METHOD.EXECUTE, AhMessage.TYPE.TALK, start, end, $.adminGlob.page, {
+        $.adminGlob.logHelper.listMessage(AhMessage.TYPE.TALK, start, end, $.adminGlob.page, {
             success: function(results, totalCount) {
                 $.adminGlob.messageList = results;
                 for(var i = 0 ; i < results.length ; i++) {
@@ -154,7 +154,7 @@ function doStatsBindingJobs() {
         var end = makeTermString(endDate, endTime);
 
         $.adminGlob.page++;
-        $.adminGlob.logHelper.listLog(LogHelper.NAME.MESSAGE, LogHelper.METHOD.EXECUTE, AhMessage.TYPE.TALK, start, end, $.adminGlob.page, {
+        $.adminGlob.logHelper.listMessage(AhMessage.TYPE.TALK, start, end, $.adminGlob.page, {
             success: function(results, totalCount) {
                 $.adminGlob.messageList = $.merge($.adminGlob.messageList, results);
                 for(var i = 0 ; i < results.length ; i++) {
@@ -169,51 +169,132 @@ function doStatsBindingJobs() {
 
 
     $('#export_chat').click(function(evt){
-        console.log('here');
         var startDate = $('#start_date').val();
         var startTime = $('#start_time').val();
 
         var endDate = $('#end_date').val();
         var endTime = $('#end_time').val();
 
-        var filename = startDate + "-"+startTime + "_" + endDate + "-" + endTime;
+        var filename = "[Chat]" + startDate + "-"+startTime + "_" + endDate + "-" + endTime;
 
         DownloadJSON2CSV($.adminGlob.messageList, filename);
     });
 
 
-    $('#export_log_btn').click(function(evt){
 
+    $.each($('#csv_div .hour'), function(index, value){
+        for(var i = 0 ; i < 24 ; i++) {
+            $(this).append("<option value='"+i+"'>"+i+"</option>");
+        }
     });
 
+    $.each($('#select_name_log'), function(index, value){
+        $(this).append("<option value='ALL'>-ALL-</option>");
+        for (var i in LogHelper.NAME) {
+            $(this).append("<option value='"+i+"'>"+i+"</option>");
+        }
+    });
+
+    $.each($('#select_method_log'), function(index, value){
+        $(this).append("<option value='ALL'>-ALL-</option>");
+        for (var i in LogHelper.METHOD) {
+            $(this).append("<option value='"+i+"'>"+i+"</option>");
+        }
+    });
+
+
+
+    $('#search_btn_log').click(function(evt){
+        var startDate = $('#start_date_log').val().replace(/-/gi, "");
+        var startTime = $('#start_time_log').val();
+
+        var endDate = $('#end_date_log').val().replace(/-/gi, "");
+        var endTime = $('#end_time_log').val();
+
+        var start = makeTermString(startDate, startTime);
+        var end = makeTermString(endDate, endTime);
+
+        var eventName = $('#select_name_log').val();
+        var eventMethod = $('#select_method_log').val();
+        if (eventName == 'ALL') eventName = undefined;
+        if (eventMethod == 'ALL') eventMethod = undefined;
+
+        $.adminGlob.pageLog = 0;
+
+        $.adminGlob.logHelper.listLog(eventName, eventMethod, start, end, $.adminGlob.pageLog, {
+            success: function(results, totalCount) {
+                $.adminGlob.logList = results;
+                $('#count_log_label').text($.adminGlob.logList.length + "/" + totalCount);
+            }, error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+    $('#log_next_btn').click(function(evt){
+        var startDate = $('#start_date_log').val().replace(/-/gi, "");
+        var startTime = $('#start_time_log').val();
+
+        var endDate = $('#end_date_log').val().replace(/-/gi, "");
+        var endTime = $('#end_time_log').val();
+
+        var start = makeTermString(startDate, startTime);
+        var end = makeTermString(endDate, endTime);
+
+        var eventName = $('#select_name_log').val();
+        var eventMethod = $('#select_method_log').val();
+        if (eventName == 'ALL') eventName = undefined;
+        if (eventMethod == 'ALL') eventMethod = undefined;
+
+        $.adminGlob.pageLog++;
+        $.adminGlob.logHelper.listLog(eventName, eventMethod, start, end, $.adminGlob.pageLog, {
+            success: function(results, totalCount) {
+                $.adminGlob.logList = $.merge($.adminGlob.logList, results);
+                $('#count_log_label').text($.adminGlob.logList.length + "/" + totalCount);
+            }, error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+    $('#export_log_btn').click(function(evt){
+        var startDate = $('#start_date_log').val();
+        var startTime = $('#start_time_log').val();
+
+        var endDate = $('#end_date_log').val();
+        var endTime = $('#end_time_log').val();
+
+        var filename = "[Log]"+startDate + "-"+startTime + "_" + endDate + "-" + endTime;
+
+        DownloadJSON2CSV($.adminGlob.logList, filename);
+
+//        var id01 = '5DA1C13E-4144-4230-9EDA-5A74AF820CD4';
+//        var id02 = 'ED3B43BF-032B-4B59-97AE-E2ADBAB06283';
+//        var id03 = '3B99B504-440A-4A44-AB70-39ACD23F5D62';
+//
+//        $.adminGlob.logHelper.get(id01, {
+//            success: function(results) {
+//                console.log(results);
+//            }, error: function(err) {
+//                console.log(err);
+//            }
+//        });
+    });
 }
 
-
 function setMessageUI(item) {
-//    {
-//        "id":"69EB8FFC-941C-43FC-868B-6BEB188D7F1E",
-//        "event_name":"MESSAGE"
-//        ,"event_method":"EXECUTE",
-//        "event_time":"2014-09-06[07:35:11]",
-//        "event_time_int":20140906073511,
-//        "type":"ENTER_SQUARE",
-//        "content":"라라라 님이 그라운드에 들어왔어요.",
-//        "sender":"라라라",
-//        "senderId":"77AFD8AB-AD4F-4275-A896-22B74346EB37",
-//        "receiverId":"F4708BA9-5EED-4E5B-AB16-C315966F2812",
-//        "chupaCommunId":"F4708BA9-5EED-4E5B-AB16-C315966F281277AFD8AB-AD4F-4275-A896-22B74346EB37"
-//    }
     var user = $.adminGlob.logHelper.getUserLocal(item["senderId"]);
 
     if (user == null) {
         user = {
             id : "276668BC-1C16-4B6A-A05D-9EE32CDED887",
-            isMale : true,
-            age : 25
+            isMale : "Unkown",
+            age : "Unkown"
         };
     }
 //    user.id = "276668BC-1C16-4B6A-A05D-9EE32CDED887";
     var genderHtml = user.isMale ? "<img src='/chupamanager/img/chat_gender_m.png'/>" : "<img src='/chupamanager/img/chat_gender_w.png'/>";
+    if (user.isMale == 'Unkown') genderHtml = "";
     var timeStr = item["event_time"].substring(5, item['event_time'].length);
     timeStr = timeStr.substring(0, timeStr.length-4) + "]";
     var html = "" +
@@ -237,20 +318,19 @@ function DownloadJSON2CSV(objArray, filename)
 {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     if (filename == undefined) filename = "download";
-    console.log('in Download -1');
     var keys = Object.keys(array[0]);
     var obj = {};
     for (var i = 0 ; i < keys.length ; i++) {
         obj["key"+i] = keys[i];
     }
     array.unshift(obj);
-    console.log('in Download -2');
     var str = '';
 
     for (var i = 0; i < array.length; i++) {
         var line = '';
 
         for (var index in array[i]) {
+            if (typeof(array[i][index]) == 'string' && array[i][index].contains('\n')) array[i][index] = array[i][index].replace(/\n/gi, "");
             line += (array[i][index]) + ',';
         }
 
@@ -264,7 +344,6 @@ function DownloadJSON2CSV(objArray, filename)
         str += line + '\r\n';
 
     }
-    console.log(filename);
     var blob = new Blob([str], {
         type: "text/csv;charset=utf-8;"
     });

@@ -104,14 +104,15 @@
                     <div></div>
                     <div id='stats_div'>
                         <div id='message_list_div'>
+                            <div>[Chat Log]</div>
                             <div>
                                 <div>
                                     <input id='start_date' type="date"/>
-                                    <select id='start_time'></select><span style="margin-left: 8px">Hour</span>
+                                    <select id='start_time' class="myselect"></select><span style="margin-left: 8px">Hour</span>
                                 </div>
                                 <div>
                                     <input id='end_date' type="date"/>
-                                    <select id='end_time'></select>
+                                    <select id='end_time' class="myselect"></select>
                                     <button id='message_search_btn'>Search</button>
                                 </div>
                             </div>
@@ -120,16 +121,28 @@
                         </div>
 
                         <div id="csv_div">
+                            <div>[Log Data]</div>
                             <div>
                                 <input id='start_date_log' type="date"/>
-                                <select id='start_time_log'></select><span style="margin-left: 8px">Hour</span>
+                                <select class='hour myselect' id='start_time_log'></select><span style="margin-left: 8px">Hour</span>
                             </div>
                             <div>
                                 <input id='end_date_log' type="date"/>
-                                <select id='end_time_log'></select>
-                                <button id='message_search_btn_log'>Get Log Data</button>
+                                <select class='hour myselect' id='end_time_log'></select><span style="margin-left: 8px">Hour</span>
                             </div>
-                            <button id="log_next_btn">Next</button><button id="export_log_btn">Export Total Log</button><label id="count_log_label"></label>
+                            <div>
+                                <div>
+                                    <label style="margin-right: 16px;">Name</label><select id="select_name_log" class="myselect"></select>
+                                </div>
+                                <div>
+                                    <label style="margin-right: 3px;">Method</label><select id="select_method_log" class="myselect"></select>
+                                    <button id='search_btn_log'>Search Log</button>
+                                </div>
+                            </div>
+
+                            <div></div>
+                            <div><label id="count_log_label">0/0</label></div>
+                            <button id="log_next_btn">Next</button><button id="export_log_btn">Export Total Log</button>
                         </div>
                     </div>
                 </div>

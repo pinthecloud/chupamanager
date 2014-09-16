@@ -322,6 +322,21 @@ LogHelper.prototype.list = function(callback) {
         });
 };
 
+LogHelper.prototype.get = function(id, callback) {
+    this.table
+        .where({id: id})
+        .read()
+        .done(function (results) {
+            console.log(results.length);
+            if (callback.success != undefined) {
+                callback.success(results);
+            }
+        }, function (err) {
+            if (callback.error != undefined)
+                callback.error(err);
+        });
+};
+
 LogHelper.prototype.listByName = function(name, callback) {
     this.table.where({event_name : name})
         .read()
@@ -337,6 +352,7 @@ LogHelper.prototype.listByName = function(name, callback) {
 
 LogHelper.prototype.listByMethod = function(method, callback) {
     this.table.where({event_method : method})
+        .take(1000)
         .read()
         .done(function (results) {
             if (callback.success != undefined) {
@@ -348,16 +364,64 @@ LogHelper.prototype.listByMethod = function(method, callback) {
         });
 };
 
-LogHelper.prototype.listLog = function(event_name, event_method, type, start, end, page, callback) {
+LogHelper.prototype.listMessage = function(type, start, end, page, callback) {
     if (page < 0) return;
     this.table
         .includeTotalCount()
-        .where(function (event_name, event_method, type, start, end) {
-            return this.event_name == event_name && this.event_method == event_method
+        .where(function (type, start, end) {
+            return this.event_name == LogHelper.NAME.MESSAGE
+                && this.event_method == LogHelper.METHOD.EXECUTE
                 && this.type == type
                 && this.event_time_int >= start && this.event_time_int <= end;
-        }, event_name, event_method, type, start, end)
-        .skip(page*100).take(100)
+        }, type, start, end)
+        .skip(page*500).take(500)
+        .orderBy('event_time_int')
+        .read()
+        .done(function (results) {
+            if (callback.success != undefined) {
+                callback.success(results, results.totalCount);
+            }
+        }, function (err) {
+            if (callback.error != undefined)
+                callback.error(err);
+        });
+};
+
+LogHelper.prototype.listLog = function(event_name, event_method, start, end, page, callback) {
+
+    var whereFunc = null;
+    if (event_name == undefined && event_method == undefined) {
+        whereFunc = function (event_name, event_method, start, end) {
+            return this.event_time_int >= start && this.event_time_int <= end;
+        };
+    }
+    else if (event_name == undefined && event_method != undefined) {
+        whereFunc = function (event_name, event_method, start, end) {
+            return this.event_method == event_method
+                && this.event_time_int >= start && this.event_time_int <= end;
+        };
+    }
+    else if (event_name != undefined && event_method == undefined) {
+        whereFunc = function (event_name, event_method, start, end) {
+            return this.event_name == event_name
+                && this.event_time_int >= start && this.event_time_int <= end;
+        };
+    }
+    else if (event_name != undefined && event_method != undefined) {
+        whereFunc = function (event_name, event_method, start, end) {
+            return this.event_name == event_name
+                && this.event_method == event_method
+                && this.event_time_int >= start && this.event_time_int <= end;
+        };
+    }
+
+
+    if (page < 0) return;
+    this.table
+        .includeTotalCount()
+        .where(whereFunc, event_name, event_method, start, end)
+        .skip(page*500).take(500)
+        .orderBy('event_time_int')
         .read()
         .done(function (results) {
             if (callback.success != undefined) {

@@ -258,7 +258,6 @@ textarea {
     height: 500px;
     overflow: scroll;
     overflow-x: hidden;
-
 }
 
 .message_container {
@@ -302,9 +301,6 @@ textarea {
 .message_content {
     margin-left : 80px;
 }
-
-
-
 
 /*//.AXContextMenu .contextMenuItem.first {*/
 /*//.AXContextMenu .contextMenuItem.last {*/
