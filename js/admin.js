@@ -169,13 +169,15 @@ function doStatsBindingJobs() {
 
 
     $('#export_chat').click(function(evt){
-        var startDate = $('#start_date').val();
+        var startDate = $('#start_date').val().replace(/-/gi, "");
+        startDate = startDate.substring(2, startDate.length);
         var startTime = $('#start_time').val();
 
-        var endDate = $('#end_date').val();
+        var endDate = $('#end_date').val().replace(/-/gi, "");
+        endDate = endDate.substring(2, endDate.length);
         var endTime = $('#end_time').val();
 
-        var filename = "[Chat]" + startDate + "-"+startTime + "_" + endDate + "-" + endTime;
+        var filename = "[Chat]"+startDate + "_"+startTime + "~" + endDate + "_" + endTime;
 
         DownloadJSON2CSV($.adminGlob.messageList, filename);
     });
@@ -258,27 +260,18 @@ function doStatsBindingJobs() {
     });
 
     $('#export_log_btn').click(function(evt){
-        var startDate = $('#start_date_log').val();
+        var startDate = $('#start_date_log').val().replace(/-/gi, "");
+        startDate = startDate.substring(2, startDate.length);
         var startTime = $('#start_time_log').val();
 
-        var endDate = $('#end_date_log').val();
+        var endDate = $('#end_date_log').val().replace(/-/gi, "");
+        endDate = endDate.substring(2, endDate.length);
         var endTime = $('#end_time_log').val();
 
-        var filename = "[Log]"+startDate + "-"+startTime + "_" + endDate + "-" + endTime;
+        var filename = "[Log]"+startDate + "_"+startTime + "~" + endDate + "_" + endTime;
 
         DownloadJSON2CSV($.adminGlob.logList, filename);
 
-//        var id01 = '5DA1C13E-4144-4230-9EDA-5A74AF820CD4';
-//        var id02 = 'ED3B43BF-032B-4B59-97AE-E2ADBAB06283';
-//        var id03 = '3B99B504-440A-4A44-AB70-39ACD23F5D62';
-//
-//        $.adminGlob.logHelper.get(id01, {
-//            success: function(results) {
-//                console.log(results);
-//            }, error: function(err) {
-//                console.log(err);
-//            }
-//        });
     });
 }
 
@@ -331,6 +324,8 @@ function DownloadJSON2CSV(objArray, filename)
 
         for (var index in array[i]) {
             if (typeof(array[i][index]) == 'string' && array[i][index].contains('\n')) array[i][index] = array[i][index].replace(/\n/gi, "");
+            if (array[i][index] == null || array[i][index] == "null" || array[i][index] == "NULL_VALUE")
+                array[i][index] = "";
             line += (array[i][index]) + ',';
         }
 
@@ -626,16 +621,19 @@ function onCreateSquareGrid() {
         targetID : "SquareGrid",
         // fitToWidth:true,
         colGroup : [
-            {key:"id", label:"id", width:"100", align:"middle", align:"center"},
-            {key:"name", label:"name", width:"160", align:"center"},
-            {key:"whoMade", label:"whoMade", width:"160", align:"center"},
+            {key:"id", label:"id", width:"80", align:"middle", align:"center"},
+            {key:"name", label:"name", width:"150", align:"center"},
+            {key:"whoMade", label:"whoMade", width:"150", align:"center"},
             {key:"isAdmin", label:"isAdmin", width:"90", align:"center"},
-            {key:"code", label:"code", width:"120", align:"center"},
-            {key:"maleNum", label:"maleNum", width:"100", align:"center"},
-            {key:"femaleNum", label:"femaleNum", width:"100", align:"center"},
+            {key:"code", label:"code", width:"100", align:"center"},
+            {key:"maleNum", label:"M", width:"60", align:"center"},
+            {key:"femaleNum", label:"F", width:"60", align:"center"},
             {key:"longitude", label:"longitude", width:"120", align:"center"},
             {key:"latitude", label:"latitude", width:"120", align:"center"},
-            {key:"distance", label:"distance", width:"70", align:"center"}
+            {key:"distance", label:"distance", width:"70", align:"center"},
+            {key:"resetTime", label:"resetTime", width:"70", align:"center"},
+            {key:"entryRange", label:"entryRange", width:"70", align:"center"},
+            {key:"showRange", label:"showRange", width:"70", align:"center"}
         ],
         colHeadAlign:"center",
         body : {
@@ -668,7 +666,10 @@ function onCreateSquareGrid() {
                     {colSeq:6, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {colSeq:7, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
                     {colSeq:8, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
-                    {colSeq:9, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}}
+                    {colSeq:9, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
+                    {colSeq:10, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
+                    {colSeq:11, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}},
+                    {colSeq:12, align:"center", valign:"bottom", form:{type:"text", value:"itemValue"}, AXBind:{type:"number"}}
                 ]
             ],
             response: function(){ // ajax 응답에 대해 예외 처리 필요시 response 구현
